@@ -673,82 +673,166 @@
     // ---------- OTÁZKY – MATEMATIKA, 7. ROČNÍK ----------
     const QUESTIONS = {
         "7. ročník": {
-            "Zlomky a racionální čísla": [
-                {
-                    text: "Zkrať zlomek 8/12.",
-                    options: ["2/3", "3/4", "4/6", "1/2"],
-                    correctIndex: 0
-                },
-                {
-                    text: "Sečti: 1/3 + 1/6 =",
-                    options: ["1/9", "1/2", "2/6", "3/6"],
-                    correctIndex: 1
-                },
-                {
-                    text: "Převeď: 0,75 na zlomek v základním tvaru.",
-                    options: ["1/4", "3/4", "2/3", "4/5"],
-                    correctIndex: 1
-                },
-                {
-                    text: "Vyděl: 3/4 : 1/2 =",
-                    options: ["3/8", "3/2", "1/2", "6/4"],
-                    correctIndex: 1
-                }
-            ],
+           "Zlomky a racionální čísla": [
+    {
+        text: "Zkrať zlomek 8/12.",
+        options: ["2/3", "3/4", "4/6", "1/2"],
+        correctIndex: 0
+    },
+    {
+        text: "Sečti: 1/3 + 1/6 =",
+        options: ["1/9", "1/2", "2/6", "3/6"],
+        correctIndex: 1
+    },
+    {
+        text: "Převeď 0,75 na zlomek v základním tvaru.",
+        options: ["1/4", "3/4", "2/3", "4/5"],
+        correctIndex: 1
+    },
+    {
+        text: "Vyděl: 3/4 : 1/2 =",
+        options: ["3/8", "3/2", "1/2", "6/4"],
+        correctIndex: 1
+    },
+    {
+        text: "Vypočítej: 5/6 − 1/3 =",
+        options: ["4/6", "1/2", "3/6", "2/6"],
+        correctIndex: 1
+    },
+    {
+        text: "Zvětši zlomek 2/5 na zlomek se jmenovatelem 20.",
+        options: ["8/20", "4/20", "6/20", "10/20"],
+        correctIndex: 0
+    },
+    {
+        text: "Zkrať zlomek 18/27.",
+        options: ["2/3", "3/4", "6/9", "9/18"],
+        correctIndex: 0
+    },
+    {
+        text: "Kolik je 2 1/2 v desetinném tvaru?",
+        options: ["2,25", "2,4", "2,5", "3,5"],
+        correctIndex: 2
+    },
+    {
+        text: "Vypočítej: 1/2 × 3/4 =",
+        options: ["3/4", "2/6", "3/8", "1/6"],
+        correctIndex: 2
+    },
+    {
+        text: "Který zlomek je největší?",
+        options: ["2/3", "3/5", "4/7", "5/9"],
+        correctIndex: 0
+    }
+],
+
 
             "Desetinná čísla": [
-                {
-                    text: "Vypočítej: 3,5 + 1,27 =",
-                    options: ["4,77", "4,57", "5,77", "3,62"],
-                    correctIndex: 0
-                },
-                {
-                    text: "Vypočítej: 6,4 - 2,75 =",
-                    options: ["3,65", "3,55", "4,35", "3,75"],
-                    correctIndex: 0
-                },
-                {
-                    text: "Převeď: 2,03 m na cm.",
-                    options: ["203 cm", "20,3 cm", "2 030 cm", "2030 m"],
-                    correctIndex: 0
-                }
-            ],
+    {
+        text: "Vypočítej: 3,5 + 1,27 =",
+        options: ["4,77", "4,57", "5,77", "3,62"],
+        correctIndex: 0
+    },
+    {
+        text: "Vypočítej: 6,4 - 2,75 =",
+        options: ["3,65", "3,55", "4,35", "3,75"],
+        correctIndex: 0
+    },
+    {
+        text: "Převeď: 2,03 m na cm.",
+        options: ["203 cm", "20,3 cm", "2 030 cm", "2030 m"],
+        correctIndex: 0
+    },
+    {
+        text: "Vypočítej: 0,8 × 0,5 =",
+        options: ["0,04", "0,4", "4", "0,08"],
+        correctIndex: 1
+    },
+    {
+        text: "Vypočítej: 4,2 ÷ 0,6 =",
+        options: ["0,7", "7", "0,06", "0,42"],
+        correctIndex: 1
+    },
+    {
+        text: "O kolik je 3,75 větší než 2,9?",
+        options: ["0,75", "0,85", "1,15", "1,25"],
+        correctIndex: 1
+    },
+    {
+        text: "Zaokrouhli číslo 12,476 na dvě desetinná místa.",
+        options: ["12,47", "12,48", "12,46", "12,50"],
+        correctIndex: 1
+    },
+    {
+        text: "Které z čísel je nejmenší?",
+        options: ["0,503", "0,53", "0,5", "0,5031"],
+        correctIndex: 0
+    },
+    {
+        text: "Vypočítej: 7,2 - 3,405 =",
+        options: ["3,795", "3,805", "3,695", "3,705"],
+        correctIndex: 0
+    },
+    {
+        text: "Vypočítej: 1,2 × 3,5 =",
+        options: ["4,2", "3,2", "5,7", "4,5"],
+        correctIndex: 0
+    }
+],
 
             "Jednoduché rovnice": [
-                {
-                    text: "Vyřeš rovnici: x + 7 = 15",
-                    options: ["x = 7", "x = 8", "x = 22", "x = -8"],
-                    correctIndex: 1
-                },
-                {
-                    text: "Vyřeš rovnici: 3x = 21",
-                    options: ["x = 7", "x = 18", "x = 63", "x = 9"],
-                    correctIndex: 0
-                },
-                {
-                    text: "Vyřeš rovnici: 20 - x = 6",
-                    options: ["x = 26", "x = 14", "x = -14", "x = 3"],
-                    correctIndex: 1
-                }
-            ],
+    {
+        text: "Vyřeš rovnici: x + 7 = 15",
+        options: ["x = 7", "x = 8", "x = 22", "x = -8"],
+        correctIndex: 1
+    },
+    {
+        text: "Vyřeš rovnici: 3x = 21",
+        options: ["x = 7", "x = 18", "x = 63", "x = 9"],
+        correctIndex: 0
+    },
+    {
+        text: "Vyřeš rovnici: 20 - x = 6",
+        options: ["x = 26", "x = 14", "x = -14", "x = 3"],
+        correctIndex: 1
+    },
+    {
+        text: "Vyřeš rovnici: 5x = 45",
+        options: ["x = 9", "x = 5", "x = 45", "x = 8"],
+        correctIndex: 0
+    },
+    {
+        text: "Vyřeš rovnici: x - 12 = 4",
+        options: ["x = 8", "x = 16", "x = -16", "x = 6"],
+        correctIndex: 1
+    },
+    {
+        text: "Vyřeš rovnici: 2x + 3 = 11",
+        options: ["x = 4", "x = 5", "x = 3", "x = 2"],
+        correctIndex: 0
+    },
+    {
+        text: "Vyřeš rovnici: 18 - 3x = 9",
+        options: ["x = 9", "x = 3", "x = 2", "x = 6"],
+        correctIndex: 1
+    },
+    {
+        text: "Vyřeš rovnici: x / 4 = 3",
+        options: ["x = 7", "x = 1", "x = 12", "x = 3"],
+        correctIndex: 2
+    },
+    {
+        text: "Vyřeš rovnici: 7x - 14 = 0",
+        options: ["x = 2", "x = 14", "x = -2", "x = 1"],
+        correctIndex: 0
+    },
+    {
+        text: "Vyřeš rovnici: x + x = 18",
+        options: ["x = 8", "x = 9", "x = 10", "x = 6"],
+        correctIndex: 1
+    }
+],
 
-            "Úhly": [
-                {
-                    text: "Doplň do přímého úhlu: 180° − 65° =",
-                    options: ["105°", "115°", "125°", "135°"],
-                    correctIndex: 2
-                },
-                {
-                    text: "Polovina úhlu 60° je:",
-                    options: ["20°", "30°", "40°", "15°"],
-                    correctIndex: 2
-                },
-                {
-                    text: "Třetina úhlu 90° je:",
-                    options: ["10°", "20°", "30°", "45°"],
-                    correctIndex: 2
-                }
-            ],
 
             "Trojúhelník": [
                 {
@@ -1175,6 +1259,7 @@
 </script>
 </body>
 </html>
+
 
 
 
