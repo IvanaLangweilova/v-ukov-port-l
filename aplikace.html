@@ -6,7 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-        * {
+        * {<style>
+    body {
+        text-align: center;
+        margin-top: 60px;
+        font-family: Arial, sans-serif;
+
+        /* PASTEL KŘÍDOVÉ POZADÍ */
+        background: 
+            radial-gradient(circle at 15% 20%, rgba(255, 234, 167, 0.55), transparent 60%),
+            radial-gradient(circle at 85% 30%, rgba(250, 177, 160, 0.55), transparent 60%),
+            radial-gradient(circle at 30% 85%, rgba(129, 236, 236, 0.55), transparent 60%),
+            radial-gradient(circle at 80% 80%, rgba(116, 185, 255, 0.55), transparent 60%),
+            #ffffff;
+
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+    img {
+        width: 200px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    img:hover {
+        transform: scale(1.05);
+    }
+</style>
             box-sizing: border-box;
         }
 
@@ -1165,3 +1192,4 @@
 </script>
 </body>
 </html>
+
