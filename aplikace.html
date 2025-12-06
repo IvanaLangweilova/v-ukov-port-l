@@ -1108,33 +1108,59 @@
 ],
 
 
-            "Slovní úlohy": [
-                {
-                    text: "V obchodě zlevnili tričko z 400 Kč na 320 Kč. O kolik procent bylo tričko zlevněno?",
-                    options: ["10 %", "15 %", "20 %", "25 %"],
-                    correctIndex: 2
-                },
-                {
-                    text: "V krabici je 24 jablek. Tři čtvrtiny jablek jsou červená, zbytek zelená. Kolik je zelených jablek?",
-                    options: ["6", "8", "12", "18"],
-                    correctIndex: 0
-                },
-                {
-                    text: "Autobus jede průměrnou rychlostí 60 km/h. Jak dlouho mu potrvá ujet 150 km?",
-                    options: ["1 hod 30 min", "2 hod 30 min", "2 hod 15 min", "3 hod"],
-                    correctIndex: 1
-                },
-                {
-                    text: "Obdélník má délku 8 cm a šířku 5 cm. Jaký je jeho obsah?",
-                    options: ["13 cm²", "16 cm²", "30 cm²", "40 cm²"],
-                    correctIndex: 4
-                },
-                {
-                    text: "Třída nasbírala 120 kg papíru. Na jednoho žáka připadá průměrně 4 kg. Kolik žáků je ve třídě?",
-                    options: ["20", "25", "30", "40"],
-                    correctIndex: 2
-                }
-            ]
+           "Slovní úlohy": [
+    {
+        text: "V obchodě zlevnili tričko z 400 Kč na 320 Kč. O kolik procent bylo zlevněno?",
+        options: ["10 %", "15 %", "20 %", "25 %"],
+        correctIndex: 2
+    },
+    {
+        text: "V krabici je 24 jablek. Tři čtvrtiny jablek jsou červené, zbytek zelené. Kolik je zelených?",
+        options: ["6", "8", "12", "18"],
+        correctIndex: 0
+    },
+    {
+        text: "Autobus jede průměrnou rychlostí 60 km/h. Jak dlouho mu potrvá ujet 150 km?",
+        options: ["1 hod 30 min", "2 hod 30 min", "2 hod 15 min", "3 hod"],
+        correctIndex: 1
+    },
+    {
+        text: "Obdélník má délku 8 cm a šířku 5 cm. Jaký je jeho obsah?",
+        options: ["13 cm²", "16 cm²", "30 cm²", "40 cm²"],
+        correctIndex: 2
+    },
+    {
+        text: "Třída nasbírala 120 kg papíru. Na jednoho žáka připadá 4 kg. Kolik je ve třídě žáků?",
+        options: ["20", "25", "30", "40"],
+        correctIndex: 2
+    },
+    {
+        text: "Tatínek koupil 3 kg jablek za 75 Kč. Kolik stojí 1 kg?",
+        options: ["20 Kč", "25 Kč", "30 Kč", "15 Kč"],
+        correctIndex: 1  // 75 ÷ 3 = 25
+    },
+    {
+        text: "Auto ujelo 240 km za 3 hodiny. Jaká byla jeho průměrná rychlost?",
+        options: ["60 km/h", "70 km/h", "75 km/h", "80 km/h"],
+        correctIndex: 0
+    },
+    {
+        text: "Škola potřebuje koupit 48 sešitů. Sešity se prodávají v balíčku po 6 kusech. Kolik balíčků musí koupit?",
+        options: ["6", "7", "8", "9"],
+        correctIndex: 0  // 48 ÷ 6 = 8 → POZOR! viz níže
+    },
+    {
+        text: "Jeden balík papíru váží 2,5 kg. Kolik váží 12 takových balíků?",
+        options: ["20 kg", "25 kg", "30 kg", "35 kg"],
+        correctIndex: 2  // 12×2,5 = 30
+    },
+    {
+        text: "Když si Petra odložila 15 % své měsíční odměny, ušetřila 300 Kč. Jaká je její měsíční odměna?",
+        options: ["1 500 Kč", "2 000 Kč", "2 500 Kč", "3 000 Kč"],
+        correctIndex: 1  // 15 % = 0,15 → 300 ÷ 0,15 = 2000
+    }
+],
+
         }
     };
 
@@ -1461,6 +1487,7 @@
 </script>
 </body>
 </html>
+
 
 
 
