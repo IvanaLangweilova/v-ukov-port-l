@@ -4,341 +4,1233 @@
     <meta charset="UTF-8">
     <title>Výukový portál ZŠ – procvičování</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
-        /* CSS styly zůstávají stejné jako ve vašem původním návrhu */
-        * { box-sizing: border-box; }
-        body {
-            margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: radial-gradient(circle at 15% 20%, rgba(255, 234, 167, 0.55), transparent 60%), radial-gradient(circle at 85% 30%, rgba(250, 177, 160, 0.55), transparent 60%), radial-gradient(circle at 30% 85%, rgba(129, 236, 236, 0.55), transparent 60%), radial-gradient(circle at 80% 80%, rgba(116, 185, 255, 0.55), transparent 60%), #ffffff;
-            background-attachment: fixed; background-size: cover; min-height: 100vh; display: flex; flex-direction: column;
+        * {
+            box-sizing: border-box;
         }
-        header { background: rgba(45, 52, 54, 0.9); color: #ffffff; padding: 1rem; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.25); position: sticky; top: 0; z-index: 10; }
-        header h1 { margin: 0.2rem 0; font-size: 1.6rem; }
-        header p { margin: 0; font-size: 0.95rem; opacity: 0.9; }
-        main { flex: 1; display: flex; justify-content: center; padding: 1.5rem 0.5rem 2rem; }
-        .app-card { width: 100%; max-width: 1000px; background: #ffffff; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.20); padding: 1.5rem; animation: cardIn 0.5s ease-out; }
-        @keyframes cardIn { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        section { display: none; }
-        section.active { display: block; }
-        .intro { text-align: center; padding: 1rem; }
-        .intro-title { font-size: 1.8rem; margin-bottom: 0.5rem; }
-        .intro-subtitle { font-size: 1rem; color: #636e72; margin-bottom: 1.5rem; }
-        .intro-graphic { margin: 1rem auto 1.5rem; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle at 30% 20%, #ffeaa7, #fab1a0, #6c5ce7); display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 2.2rem; font-weight: 700; box-shadow: 0 10px 25px rgba(0,0,0,0.3); animation: float 2.5s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-        .intro-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-        button { padding: 0.55rem 0.9rem; font-size: 0.95rem; cursor: pointer; border-radius: 999px; border: none; font-weight: 600; letter-spacing: 0.02em; transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, opacity 0.12s ease; }
-        button:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; }
-        button:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
-        .btn-primary { background: #0984e3; color: #ffffff; }
-        .btn-primary:hover:not(:disabled) { background: #0769b6; }
-        .btn-outline { background: #ffffff; color: #2d3436; border: 1px solid #b2bec3; }
-        .btn-outline:hover:not(:disabled) { background: #ecf0f1; }
-        .subjects-header { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
-        .subjects-title { font-size: 1.3rem; font-weight: 600; }
-        .subjects-subtitle { font-size: 0.9rem; color: #636e72; }
-        .subjects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.75rem; }
-        .subject-card { background: #f9fafb; border-radius: 12px; padding: 0.7rem; text-align: center; border: 1px solid #dfe6e9; cursor: pointer; display: flex; flex-direction: column; gap: 0.3rem; align-items: center; justify-content: center; min-height: 100px; transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s; }
-        .subject-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-color: #0984e3; }
-        .subject-icon { width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #ffffff; font-size: 1.1rem; }
-        .subject-name { font-weight: 600; font-size: 0.95rem; }
-        .subject-note { font-size: 0.75rem; color: #636e72; }
-        .subject-disabled { opacity: 0.6; cursor: default; }
-        .subject-disabled:hover { transform: none; box-shadow: none; border-color: #dfe6e9; }
-        /* Styly pro ovládací panel (výběr ročníku/tématu) */
-        .controls { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; align-items: flex-end; }
-        .controls-group { display: flex; flex-direction: column; gap: 0.25rem; min-width: 130px; }
-        .controls label { font-weight: 600; font-size: 0.9rem; color: #2d3436; }
-        select { padding: 0.45rem 0.6rem; font-size: 0.95rem; border-radius: 10px; border: 1px solid #dfe6e9; background-color: #f5f6fa; outline: none; transition: border-color 0.15s, box-shadow 0.15s, background-color 0.15s; }
-        select:focus { border-color: #0984e3; box-shadow: 0 0 0 2px rgba(9,132,227,0.20); background-color: #ffffff; }
-        .mode-buttons { display: flex; gap: 0.5rem; }
-        .mode-button { background: #dfe6e9; color: #2d3436; }
-        .mode-button.active { background: #00b894; color: white; box-shadow: 0 4px 10px rgba(0,184,148,0.5); }
-        #quiz-area { margin-top: 1rem; border-top: 1px solid #dfe6e9; padding-top: 1rem; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+            /* stejné pastelové „křídové“ pozadí jako na úvodní stránce */
+            background:
+                radial-gradient(circle at 15% 20%, rgba(255, 234, 167, 0.55), transparent 60%),
+                radial-gradient(circle at 85% 30%, rgba(250, 177, 160, 0.55), transparent 60%),
+                radial-gradient(circle at 30% 85%, rgba(129, 236, 236, 0.55), transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(116, 185, 255, 0.55), transparent 60%),
+                #ffffff;
+            background-attachment: fixed;
+            background-size: cover;
+
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: rgba(45, 52, 54, 0.9);
+            color: #ffffff;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header h1 {
+            margin: 0.2rem 0;
+            font-size: 1.6rem;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: 1.5rem 0.5rem 2rem;
+        }
+
+        .app-card {
+            width: 100%;
+            max-width: 1000px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.20);
+            padding: 1.5rem;
+            animation: cardIn 0.5s ease-out;
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        section {
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        /* ÚVODNÍ OBRAZOVKA UVNITŘ APLIKACE */
+        .intro {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .intro-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .intro-subtitle {
+            font-size: 1rem;
+            color: #636e72;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-graphic {
+            margin: 1rem auto 1.5rem;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 20%, #ffeaa7, #fab1a0, #6c5ce7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            animation: float 2.5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .intro-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        button {
+            padding: 0.55rem 0.9rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 999px;
+            border: none;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, opacity 0.12s ease;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary {
+            background: #0984e3;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #0769b6;
+        }
+
+        .btn-outline {
+            background: #ffffff;
+            color: #2d3436;
+            border: 1px solid #b2bec3;
+        }
+
+        .btn-outline:hover:not(:disabled) {
+            background: #ecf0f1;
+        }
+
+        /* VÝBĚR PŘEDMĚTŮ (2. STUPEŇ) */
+        .subjects-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subjects-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .subjects-subtitle {
+            font-size: 0.9rem;
+            color: #636e72;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .subject-card {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 0.7rem;
+            text-align: center;
+            border: 1px solid #dfe6e9;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-color: #0984e3;
+        }
+
+        .subject-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+
+        .subject-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .subject-note {
+            font-size: 0.75rem;
+            color: #636e72;
+        }
+
+        .subject-disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        .subject-disabled:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #dfe6e9;
+        }
+
+        /* OVLÁDACÍ PANEL A KVÍZ */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            align-items: flex-end;
+        }
+
+        .controls-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            min-width: 130px;
+        }
+
+        .controls label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2d3436;
+        }
+
+        select {
+            padding: 0.45rem 0.6rem;
+            font-size: 0.95rem;
+            border-radius: 10px;
+            border: 1px solid #dfe6e9;
+            background-color: #f5f6fa;
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s, background-color 0.15s;
+        }
+
+        select:focus {
+            border-color: #0984e3;
+            box-shadow: 0 0 0 2px rgba(9,132,227,0.20);
+            background-color: #ffffff;
+        }
+
+        .mode-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .mode-button {
+            background: #dfe6e9;
+            color: #2d3436;
+        }
+
+        .mode-button.active {
+            background: #00b894;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,184,148,0.5);
+        }
+
+        #quiz-area {
+            margin-top: 1rem;
+            border-top: 1px solid #dfe6e9;
+            padding-top: 1rem;
+        }
+
+        #status-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-bottom: 0.7rem;
+            font-size: 0.9rem;
+            color: #2d3436;
+        }
+
+        #timer {
+            font-weight: 600;
+            color: #d63031;
+        }
+
+        #score {
+            font-weight: 600;
+        }
+
+        #question-container {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            animation: fadeInQuestion 0.35s ease-out;
+        }
+
+        @keyframes fadeInQuestion {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #question-text {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .topic-pill {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            background: #ffeaa7;
+            color: #636e72;
+            margin-bottom: 0.4rem;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .options li {
+            width: 100%;
+        }
+
+        .option-button {
+            width: 100%;
+            text-align: left;
+            padding: 0.55rem 0.7rem;
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #dfe6e9;
+            font-size: 0.95rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .option-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 999px;
+            background: #dfe6e9;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .option-button.correct {
+            background: #00b894;
+            color: white;
+            border-color: #00b894;
+        }
+
+        .option-button.wrong {
+            background: #d63031;
+            color: white;
+            border-color: #c0392b;
+        }
+
+        #feedback {
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        #feedback.ok {
+            color: #00b894;
+        }
+
+        #feedback.bad {
+            color: #d63031;
+        }
+
+        .bottom-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        #next-btn {
+            background: #fdcb6e;
+            color: #2d3436;
+        }
+
+        #next-btn:hover:not(:disabled) {
+            background: #f5b942;
+        }
+
+        #finish-btn {
+            background: #6c5ce7;
+            color: white;
+        }
+
+        #finish-btn:hover:not(:disabled) {
+            background: #574bdb;
+        }
+
+        #summary {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            background: #f1f2f6;
+            border-radius: 12px;
+            max-height: 260px;
+            overflow: auto;
+        }
+
+        #summary h3 {
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        th, td {
+            border: 1px solid #dcdde1;
+            padding: 0.35rem;
+        }
+
+        th {
+            background: #dfe6e9;
+            position: sticky;
+            top: 0;
+        }
+
+        @media (max-width: 700px) {
+            .app-card {
+                padding: 1rem;
+                border-radius: 0.75rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            header h1 {
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 <body>
+<header>
+    <h1>Výukový portál ZŠ</h1>
+    <p>Procvičování a testy – matematika a další předměty</p>
+</header>
 
-    <header>
-        <h1>Výukový portál ZŠ</h1>
-        <p>Interaktivní procvičování</p>
-    </header>
+<main>
+    <div class="app-card">
 
-    <main>
-        <div class="app-card">
+        <!-- ÚVODNÍ OBRAZOVKA -->
+        <section id="screen-intro" class="intro active">
+            <div class="intro-title">Vítej v procvičování pro základní školu</div>
+            <div class="intro-subtitle">Vyber stupeň školy a potom předmět, který chceš procvičovat.</div>
 
-            <!-- Úvodní obrazovka -->
-            <section id="intro-screen" class="active">
-                <div class="intro">
-                    <h2 class="intro-title">Vítejte, vyberte si stupeň:</h2>
-                    <p class="intro-subtitle">Zvolte si, pro který stupeň základní školy chcete procvičovat učivo.</p>
-                    <div class="intro-graphic">ZŠ</div>
-                    <div class="intro-buttons">
-                        <button class="btn-primary" onclick="navigateTo('#section1')">
-                            1. stupeň ZŠ (1. - 5. třída)
-                        </button>
-                        <button class="btn-primary" onclick="navigateTo('#section2')">
-                            2. stupeň ZŠ (6. - 9. třída)
-                        </button>
+            <div class="intro-graphic">
+                ZŠ
+            </div>
+
+            <div class="intro-buttons">
+                <button id="btn-1st" class="btn-primary" type="button">
+                    1. stupeň ZŠ<br>
+                    <span style="font-size:0.8rem; font-weight:400;">pokračovat</span>
+                </button>
+                <button id="btn-2nd" class="btn-primary" type="button">
+                    2. stupeň ZŠ<br>
+                    <span style="font-size:0.8rem; font-weight:400;">pokračovat</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 1. STUPEŇ – ZATÍM JEN TEXT -->
+        <section id="screen-1st">
+            <div class="subjects-header">
+                <div>
+                    <div class="subjects-title">Matematika – 1. stupeň ZŠ</div>
+                    <div class="subjects-subtitle">
+                        Tato část portálu bude obsahovat úlohy pro 1.–5. ročník (počítání, násobilka, slovní úlohy…).
                     </div>
+                </div>
+                <button id="btn-back-intro-1st" class="btn-outline" type="button">
+                    Zpět na výběr stupně
+                </button>
+            </div>
+
+            <p>
+                Zatím je tato část ve výstavbě. Funkční kvízy jsou připraveny pro 2. stupeň – 7. ročník (matematika).
+            </p>
+        </section>
+
+        <!-- VÝBĚR PŘEDMĚTU – 2. STUPEŇ -->
+        <section id="screen-subjects">
+            <div class="subjects-header">
+                <div>
+                    <div class="subjects-title">Vyber předmět – 2. stupeň ZŠ</div>
+                    <div class="subjects-subtitle">Zatím je plně funkční matematika (7. ročník), ostatní předměty jsou připravené k rozšíření.</div>
+                </div>
+                <button id="btn-back-intro" class="btn-outline" type="button">Zpět na výběr stupně</button>
+            </div>
+
+            <div class="subjects-grid">
+                <div class="subject-card subject-disabled">
+                    <div class="subject-icon" style="background:#ff7675;">ČJ</div>
+                    <div class="subject-name">Český jazyk</div>
+                    <div class="subject-note">připravuje se</div>
+                </div>
+
+                <div class="subject-card" data-subject="matematika">
+                    <div class="subject-icon" style="background:#00b894;">M</div>
+                    <div class="subject-name">Matematika</div>
+                    <div class="subject-note">plně funkční</div>
+                </div>
+
+                <div class="subject-card subject-disabled">
+                    <div class="subject-icon" style="background:#0984e3;">F</div>
+                    <div class="subject-name">Fyzika</div>
+                    <div class="subject-note">připravuje se</div>
+                </div>
+
+                <div class="subject-card subject-disabled">
+                    <div class="subject-icon" style="background:#6c5ce7;">CH</div>
+                    <div class="subject-name">Chemie</div>
+                    <div class="subject-note">připravuje se</div>
+                </div>
+
+                <div class="subject-card subject-disabled">
+                    <div class="subject-icon" style="background:#00cec9;">PŘ</div>
+                    <div class="subject-name">Přírodopis</div>
+                    <div class="subject-note">připravuje se</div>
+                </div>
+
+                <div class="subject-card subject-disabled">
+                    <div class="subject-icon" style="background:#e17055;">D</div>
+                    <div class="subject-name">Dějepis</div>
+                    <div class="subject-note">připravuje se</div>
+                </div>
+
+                <div class="subject-card subject-disabled">
+                    <div class="subject-icon" style="background:#0984e3;">AJ</div>
+                    <div class="subject-name">Anglický jazyk</div>
+                    <div class="subject-note">připravuje se</div>
+                </div>
+
+                <div class="subject-card subject-disabled">
+                    <div class="subject-icon" style="background:#2d3436;">NJ</div>
+                    <div class="subject-name">Německý jazyk</div>
+                    <div class="subject-note">připravuje se</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OBRAZOVKA S KVÍZEM (MATEMATIKA – 2. STUPEŇ) -->
+        <section id="screen-quiz">
+            <div class="subjects-header">
+                <div>
+                    <div class="subjects-title" id="quiz-title">Matematika – procvičování</div>
+                    <div class="subjects-subtitle">Vyber ročník, téma a režim (procvičování nebo ostrý test).</div>
+                </div>
+                <button id="btn-back-subjects" class="btn-outline" type="button">Změnit předmět</button>
+            </div>
+
+            <section class="controls">
+                <div class="controls-group">
+                    <label for="grade">Ročník</label>
+                    <select id="grade">
+                        <option value="7. ročník">7. ročník</option>
+                    </select>
+                </div>
+
+                <div class="controls-group">
+                    <label for="topic">Téma (RVP)</label>
+                    <select id="topic">
+                        <option value="Zlomky a racionální čísla">Zlomky a racionální čísla</option>
+                        <option value="Desetinná čísla">Desetinná čísla</option>
+                        <option value="Jednoduché rovnice">Jednoduché rovnice</option>
+                        <option value="Úhly">Úhly</option>
+                        <option value="Trojúhelník">Trojúhelník</option>
+                        <option value="Mnohoúhelníky a osová souměrnost">Mnohoúhelníky a osová souměrnost</option>
+                        <option value="Objem a povrch kvádru a krychle">Objem a povrch kvádru a krychle</option>
+                        <option value="Převody jednotek">Převody jednotek</option>
+                        <option value="Slovní úlohy">Slovní úlohy</option>
+                    </select>
+                </div>
+
+                <div class="controls-group">
+                    <label>Režim</label>
+                    <div class="mode-buttons">
+                        <button id="mode-practice" class="mode-button active" type="button">Procvičování</button>
+                        <button id="mode-test" class="mode-button" type="button">Ostrý test</button>
+                    </div>
+                </div>
+
+                <div class="controls-group">
+                    <label>&nbsp;</label>
+                    <button id="start-btn" class="btn-primary" type="button">Spustit</button>
                 </div>
             </section>
 
-            <!-- Sekce pro 1. stupeň ZŠ -->
-            <section id="section1">
-                <div class="subjects-header">
-                    <h3 class="subjects-title">1. stupeň ZŠ – Předměty</h3>
-                    <button class="btn-outline" onclick="navigateTo('#intro-screen')">Zpět</button>
+            <section id="quiz-area" style="display:none;">
+                <div id="status-bar">
+                    <div id="timer"></div>
+                    <div id="score"></div>
                 </div>
-                <p class="subjects-subtitle">Vyberte si předmět k procvičování.</p>
-                <div class="subjects-grid">
-                    <!-- Přidán onclick handler pro matematiku 1. stupně -->
-                    <div class="subject-card" onclick="selectSubject('math1')">
-                        <div class="subject-icon" style="background: #e17055;">M</div>
-                        <span class="subject-name">Matematika</span>
-                        <span class="subject-note">(1.-5. tř.)</span>
-                    </div>
-                    <!-- další předměty zde -->
+
+                <div id="question-container">
+                    <span class="topic-pill" id="topic-pill"></span>
+                    <div id="question-text"></div>
+                    <ul id="options-list" class="options"></ul>
                 </div>
+
+                <div id="feedback"></div>
+
+                <div class="bottom-buttons">
+                    <button id="next-btn" type="button" style="display:none;">Další otázka</button>
+                    <button id="finish-btn" type="button" style="display:none;">Ukončit test</button>
+                </div>
+
+                <div id="summary"></div>
             </section>
+        </section>
+    </div>
+</main>
 
-            <!-- Sekce pro 2. stupeň ZŠ -->
-            <section id="section2">
-                <div class="subjects-header">
-                    <h3 class="subjects-title">2. stupeň ZŠ – Předměty</h3>
-                    <button class="btn-outline" onclick="navigateTo('#intro-screen')">Zpět</button>
-                </div>
-                <p class="subjects-subtitle">Vyberte si předmět k procvičování.</p>
-
-                <div class="subjects-grid">
-                    <!-- Přidán onclick handler pro češtinu a matematiku 2. stupně -->
-                    <div class="subject-card" onclick="selectSubject('czech2')">
-                        <div class="subject-icon" style="background: #00b894;">ČJ</div>
-                        <span class="subject-name">Český jazyk</span>
-                        <span class="subject-note">(6.-9. tř.)</span>
-                    </div>
-                    <div class="subject-card" onclick="selectSubject('math2')">
-                        <div class="subject-icon" style="background: #e17055;">M</div>
-                        <span class="subject-name">Matematika</span>
-                        <span class="subject-note">(6.-9. tř.)</span>
-                    </div>
-                    <!-- další předměty zde -->
-                </div>
-            </section>
-
-            <!-- Sekce pro výběr ročníku a tématu (nová) -->
-            <section id="selection-screen">
-                <div class="subjects-header">
-                    <h3 class="subjects-title" id="selection-title">Výběr tématu</h3>
-                    <button class="btn-outline" onclick="goBackFromSelection()">Zpět na předměty</button>
-                </div>
-
-                <div class="controls">
-                    <div class="controls-group">
-                        <label for="grade-select">Ročník (třída):</label>
-                        <select id="grade-select" onchange="updateTopics()">
-                            <!-- Možnosti budou generovány JavaScriptem podle předmětu -->
-                        </select>
-                    </div>
-                    <div class="controls-group">
-                        <label for="topic-select">Téma (dle RVP):</label>
-                        <select id="topic-select">
-                             <!-- Možnosti budou generovány JavaScriptem podle ročníku -->
-                        </select>
-                    </div>
-                    <div class="controls-group">
-                        <label>Typ cvičení:</label>
-                        <div class="mode-buttons">
-                            <!-- onclick handlery spustí logiku kvízu, kterou zatím nemáme -->
-                            <button id="mode-practice" class="mode-button active">Procvičovat</button>
-                            <button id="mode-test" class="mode-button">Ostrý test</button>
-                        </div>
-                    </div>
-                    <!-- onclick handler spustí logiku kvízu, kterou zatím nemáme -->
-                    <button class="btn-primary" onclick="startQuiz()">Spustit</button>
-                </div>
-
-                <div id="quiz-area">
-                    <!-- Zde se bude zobrazovat samotný kvíz po kliknutí na "Spustit" -->
-                    <p>Po spuštění se zde objeví otázky...</p>
-                </div>
-            </section>
-
-        </div>
-    </main>
-
-    <!-- ZDE ZAČÍNÁ JAVASCRIPT LOGIKA -->
-
-    <script>
-        // Data s otázkami pro různé předměty a stupně (RVP témata)
-        // Používáme strukturu, která odpovídá vaší představě: Předmět -> Ročník -> Téma -> Otázky
-        const appData = {
-            'math2': { // Matematika 2. stupeň ZŠ
-                name: "Matematika (2. st.)",
-                grades: [6, 7, 8, 9],
-                topics: {
-                    7: [ // Otázky pro 7. ročník
-                        {
-                            topicName: "Základy procent",
-                            questions: [
-                                {
-                                    text: "Základní procenta: 50 % z 200 je:",
-                                    options: ["50", "75", "100", "150"],
-                                    correctIndex: 2
-                                },
-                                {
-                                    text: "Autobus jede průměrnou rychlostí 60 km/h a jede 2,5 hodiny. Kolik kilometrů ujede?",
-                                    options: ["120 km", "130 km", "140 km", "150 km"],
-                                    correctIndex: 3
-                                },
-                                {
-                                    text: "Kolik procent je 30 ze 120?",
-                                    options: ["20 %", "25 %", "30 %", "40 %"],
-                                    correctIndex: 1
-                                }
-                            ]
-                        },
-                        {
-                            topicName: "Poměry a měřítka",
-                            questions: [
-                                // Zde budou další otázky k tomuto tématu
-                            ]
-                        }
-                    ],
-                    // Zde budou 6., 8., 9. ročník atd.
+<script>
+    // ---------- OTÁZKY – MATEMATIKA, 7. ROČNÍK ----------
+    const QUESTIONS = {
+        "7. ročník": {
+            "Zlomky a racionální čísla": [
+                {
+                    text: "Zkrať zlomek 8/12.",
+                    options: ["2/3", "3/4", "4/6", "1/2"],
+                    correctIndex: 0
+                },
+                {
+                    text: "Sečti: 1/3 + 1/6 =",
+                    options: ["1/9", "1/2", "2/6", "3/6"],
+                    correctIndex: 1
+                },
+                {
+                    text: "Převeď: 0,75 na zlomek v základním tvaru.",
+                    options: ["1/4", "3/4", "2/3", "4/5"],
+                    correctIndex: 1
+                },
+                {
+                    text: "Vyděl: 3/4 : 1/2 =",
+                    options: ["3/8", "3/2", "1/2", "6/4"],
+                    correctIndex: 1
                 }
-            },
-            'czech2': { // Český jazyk 2. stupeň ZŠ
-                 name: "Český jazyk (2. st.)",
-                 grades: [6, 7, 8, 9],
-                 topics: { /* ... data pro ČJ ... */ }
-            },
-            'math1': { // Matematika 1. stupeň ZŠ
-                 name: "Matematika (1. st.)",
-                 grades: [1, 2, 3, 4, 5],
-                 topics: { /* ... data pro 1. stupeň ... */ }
-            }
-        };
+            ],
 
-        let currentSubjectId = null;
-        let previousSectionId = null;
+            "Desetinná čísla": [
+                {
+                    text: "Vypočítej: 3,5 + 1,27 =",
+                    options: ["4,77", "4,57", "5,77", "3,62"],
+                    correctIndex: 0
+                },
+                {
+                    text: "Vypočítej: 6,4 - 2,75 =",
+                    options: ["3,65", "3,55", "4,35", "3,75"],
+                    correctIndex: 0
+                },
+                {
+                    text: "Převeď: 2,03 m na cm.",
+                    options: ["203 cm", "20,3 cm", "2 030 cm", "2030 m"],
+                    correctIndex: 0
+                }
+            ],
 
-        // Funkce pro přepínání sekcí
-        function navigateTo(targetSelector) {
-            // Uložíme si, odkud přicházíme, pro tlačítko zpět
-            const activeSection = document.querySelector('section.active');
-            if (activeSection) {
-                previousSectionId = '#' + activeSection.id;
-            }
+            "Jednoduché rovnice": [
+                {
+                    text: "Vyřeš rovnici: x + 7 = 15",
+                    options: ["x = 7", "x = 8", "x = 22", "x = -8"],
+                    correctIndex: 1
+                },
+                {
+                    text: "Vyřeš rovnici: 3x = 21",
+                    options: ["x = 7", "x = 18", "x = 63", "x = 9"],
+                    correctIndex: 0
+                },
+                {
+                    text: "Vyřeš rovnici: 20 - x = 6",
+                    options: ["x = 26", "x = 14", "x = -14", "x = 3"],
+                    correctIndex: 1
+                }
+            ],
 
-            document.querySelectorAll('section').forEach(section => {
-                section.classList.remove('active');
-            });
+            "Úhly": [
+                {
+                    text: "Doplň do přímého úhlu: 180° − 65° =",
+                    options: ["105°", "115°", "125°", "135°"],
+                    correctIndex: 0
+                },
+                {
+                    text: "Polovina úhlu 60° je:",
+                    options: ["20°", "30°", "40°", "15°"],
+                    correctIndex: 1
+                },
+                {
+                    text: "Třetina úhlu 90° je:",
+                    options: ["10°", "20°", "30°", "45°"],
+                    correctIndex: 2
+                }
+            ],
 
-            const targetSection = document.querySelector(targetSelector);
-            if (targetSection) {
-                targetSection.classList.add('active');
-                document.querySelector('.app-card').scrollTop = 0;
-            }
+            "Trojúhelník": [
+                {
+                    text: "Součet vnitřních úhlů v trojúhelníku je:",
+                    options: ["90°", "180°", "270°", "360°"],
+                    correctIndex: 1
+                },
+                {
+                    text: "Trojúhelník se stranami 5 cm, 5 cm, 8 cm je:",
+                    options: ["rovnostranný", "rovnoramenný", "různostranný", "pravoúhlý"],
+                    correctIndex: 1
+                },
+                {
+                    text: "Který trojúhelník má všechny strany stejně dlouhé?",
+                    options: ["rovnostranný", "rovnoramenný", "různostranný", "rovnoúhlý"],
+                    correctIndex: 0
+                }
+            ],
+
+            "Mnohoúhelníky a osová souměrnost": [
+                {
+                    text: "Kolik stran má pravidelný šestiúhelník?",
+                    options: ["4", "5", "6", "8"],
+                    correctIndex: 2
+                },
+                {
+                    text: "Které z písmen je osově souměrné?",
+                    options: ["Z", "A", "F", "L"],
+                    correctIndex: 1
+                },
+                {
+                    text: "Kolik os souměrnosti má čtverec?",
+                    options: ["1", "2", "4", "8"],
+                    correctIndex: 2
+                }
+            ],
+
+            "Objem a povrch kvádru a krychle": [
+                {
+                    text: "Kvádr má rozměry 2 cm, 3 cm a 4 cm. Jeho objem je:",
+                    options: ["9 cm³", "20 cm³", "24 cm³", "18 cm³"],
+                    correctIndex: 2
+                },
+                {
+                    text: "Krychle má hranu 5 cm. Její objem je:",
+                    options: ["25 cm³", "125 cm³", "15 cm³", "5 cm²"],
+                    correctIndex: 1
+                },
+                {
+                    text: "Krychle má hranu 3 cm. Jaký je její povrch?",
+                    options: ["9 cm²", "18 cm²", "27 cm²", "54 cm²"],
+                    correctIndex: 3
+                }
+            ],
+
+            "Převody jednotek": [
+                {
+                    text: "Převeď: 3 m = ? cm",
+                    options: ["30 cm", "300 cm", "3000 cm", "3 cm"],
+                    correctIndex: 1
+                },
+                {
+                    text: "Převeď: 0,5 kg = ? g",
+                    options: ["5 g", "50 g", "500 g", "5000 g"],
+                    correctIndex: 2
+                },
+                {
+                    text: "Převeď: 2 000 ml = ? l",
+                    options: ["0,2 l", "2 l", "20 l", "200 l"],
+                    correctIndex: 1
+                }
+            ],
+
+            "Slovní úlohy": [
+                {
+                    text: "V obchodě zlevnili tričko z 400 Kč na 320 Kč. O kolik procent bylo tričko zlevněno?",
+                    options: ["10 %", "15 %", "20 %", "25 %"],
+                    correctIndex: 2
+                },
+                {
+                    text: "V krabici je 24 jablek. Tři čtvrtiny jablek jsou červená, zbytek zelená. Kolik je zelených jablek?",
+                    options: ["6", "8", "12", "18"],
+                    correctIndex: 0
+                },
+                {
+                    text: "Autobus jede průměrnou rychlostí 60 km/h. Jak dlouho mu potrvá ujet 150 km?",
+                    options: ["1 hod 30 min", "2 hod 30 min", "2 hod 15 min", "3 hod"],
+                    correctIndex: 1
+                },
+                {
+                    text: "Obdélník má délku 8 cm a šířku 5 cm. Jaký je jeho obsah?",
+                    options: ["13 cm²", "16 cm²", "30 cm²", "40 cm²"],
+                    correctIndex: 3
+                },
+                {
+                    text: "Třída nasbírala 120 kg papíru. Na jednoho žáka připadá průměrně 4 kg. Kolik žáků je ve třídě?",
+                    options: ["20", "25", "30", "40"],
+                    correctIndex: 2
+                },
+                {
+                    text: "Škola potřebuje koupit 48 sešitů. Sešity se prodávají v balíčku po 6 kusech. Kolik balíčků musí koupit?",
+                    options: ["6", "7", "8", "9"],
+                    correctIndex: 2
+                },
+                {
+                    text: "Jeden balík papíru váží 2,5 kg. Kolik váží 12 takových balíků?",
+                    options: ["20 kg", "25 kg", "30 kg", "35 kg"],
+                    correctIndex: 2
+                },
+                {
+                    text: "Když si Petra odložila 15 % své měsíční odměny, uspořila 300 Kč. Jaká je její měsíční odměna?",
+                    options: ["1 500 Kč", "2 000 Kč", "2 500 Kč", "3 000 Kč"],
+                    correctIndex: 1
+                },
+                {
+                    text: "Vstupenka do kina stojí 120 Kč. Pět kamarádů jde na film. Kolik zaplatí dohromady?",
+                    options: ["480 Kč", "520 Kč", "600 Kč", "720 Kč"],
+                    correctIndex: 2
+                },
+                {
+                    text: "Obdélníková zahrada má délku 12 m a šířku 8 m. Jaký je její obsah?",
+                    options: ["48 m²", "60 m²", "80 m²", "96 m²"],
+                    correctIndex: 3
+                }
+            ]
+        }
+    };
+
+    // ---------- STAV ----------
+    let currentSubject = null;
+    let mode = "practice";
+    let currentGrade = "7. ročník";
+    let currentTopic = "Zlomky a racionální čísla";
+
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let userAnswers = [];
+    let correctCount = 0;
+
+    let timerId = null;
+    let timeLeft = 0;
+    const TEST_QUESTION_COUNT = 10;
+    const TEST_TIME_LIMIT = 5 * 60; // 5 minut
+
+    // ---------- DOM ELEMENTY ----------
+    const screenIntro = document.getElementById("screen-intro");
+    const screen1st = document.getElementById("screen-1st");
+    const screenSubjects = document.getElementById("screen-subjects");
+    const screenQuiz = document.getElementById("screen-quiz");
+
+    const btn1st = document.getElementById("btn-1st");
+    const btn2nd = document.getElementById("btn-2nd");
+    const btnBackIntro = document.getElementById("btn-back-intro");
+    const btnBackIntro1st = document.getElementById("btn-back-intro-1st");
+    const btnBackSubjects = document.getElementById("btn-back-subjects");
+
+    const quizTitle = document.getElementById("quiz-title");
+
+    const gradeSelect = document.getElementById("grade");
+    const topicSelect = document.getElementById("topic");
+    const modePracticeBtn = document.getElementById("mode-practice");
+    const modeTestBtn = document.getElementById("mode-test");
+    const startBtn = document.getElementById("start-btn");
+
+    const quizArea = document.getElementById("quiz-area");
+    const questionText = document.getElementById("question-text");
+    const topicPill = document.getElementById("topic-pill");
+    const optionsList = document.getElementById("options-list");
+    const feedback = document.getElementById("feedback");
+    const timerDiv = document.getElementById("timer");
+    const scoreDiv = document.getElementById("score");
+    const nextBtn = document.getElementById("next-btn");
+    const finishBtn = document.getElementById("finish-btn");
+    const summaryDiv = document.getElementById("summary");
+
+    // ---------- OBRAZOVKY ----------
+    function showScreen(screen) {
+        screenIntro.classList.remove("active");
+        screen1st.classList.remove("active");
+        screenSubjects.classList.remove("active");
+        screenQuiz.classList.remove("active");
+
+        if (screen === "intro") screenIntro.classList.add("active");
+        if (screen === "subjects1st") screen1st.classList.add("active");
+        if (screen === "subjects") screenSubjects.classList.add("active");
+        if (screen === "quiz") screenQuiz.classList.add("active");
+    }
+
+    // 1. stupeň
+    btn1st.addEventListener("click", () => {
+        showScreen("subjects1st");
+    });
+
+    btnBackIntro1st.addEventListener("click", () => {
+        showScreen("intro");
+    });
+
+    // 2. stupeň – výběr předmětů
+    btn2nd.addEventListener("click", () => {
+        showScreen("subjects");
+    });
+
+    btnBackIntro.addEventListener("click", () => {
+        showScreen("intro");
+    });
+
+    btnBackSubjects.addEventListener("click", () => {
+        resetState();
+        quizArea.style.display = "none";
+        showScreen("subjects");
+    });
+
+    document.querySelectorAll(".subject-card[data-subject='matematika']").forEach(card => {
+        card.addEventListener("click", () => {
+            currentSubject = "matematika";
+            quizTitle.textContent = "Matematika – procvičování";
+            showScreen("quiz");
+        });
+    });
+
+    // ---------- REŽIMY ----------
+    modePracticeBtn.addEventListener("click", () => {
+        mode = "practice";
+        modePracticeBtn.classList.add("active");
+        modeTestBtn.classList.remove("active");
+    });
+
+    modeTestBtn.addEventListener("click", () => {
+        mode = "test";
+        modeTestBtn.classList.add("active");
+        modePracticeBtn.classList.remove("active");
+    });
+
+    // ---------- START ----------
+    startBtn.addEventListener("click", () => {
+        currentGrade = gradeSelect.value;
+        currentTopic = topicSelect.value;
+
+        if (!QUESTIONS[currentGrade] || !QUESTIONS[currentGrade][currentTopic]) {
+            alert("Pro zvolený ročník a téma zatím nejsou připravené otázky.");
+            return;
         }
 
-        // Funkce, která se spustí po kliknutí na ikonu předmětu
-        function selectSubject(subjectId) {
-            currentSubjectId = subjectId;
-            // Přepne na obrazovku výběru ročníku/tématu
-            navigateTo('#selection-screen');
-            // Naplní select boxy správnými ročníky a tématy
-            initializeSelectionScreen();
+        startQuiz();
+    });
+
+    function startQuiz() {
+        resetState();
+
+        const allQuestions = QUESTIONS[currentGrade][currentTopic];
+        const preparedQuestions = prepareQuestions(allQuestions);
+
+        if (mode === "test") {
+            currentQuestions = preparedQuestions.slice(0, Math.min(TEST_QUESTION_COUNT, preparedQuestions.length));
+            timeLeft = TEST_TIME_LIMIT;
+            startTimer();
+            finishBtn.style.display = "inline-block";
+            nextBtn.style.display = "none";
+        } else {
+            currentQuestions = preparedQuestions;
+            finishBtn.style.display = "none";
+            nextBtn.style.display = "inline-block";
+            timerDiv.textContent = "";
         }
 
-        // Funkce pro návrat ze selection-screen zpět na výběr stupně (sekce 1 nebo 2)
-        function goBackFromSelection() {
-            // Vracíme se na předchozí sekci, což je buď #section1 nebo #section2
-            if (previousSectionId) {
-                navigateTo(previousSectionId);
+        quizArea.style.display = "block";
+        showQuestion();
+    }
+
+    function resetState() {
+        currentIndex = 0;
+        userAnswers = [];
+        correctCount = 0;
+        feedback.textContent = "";
+        feedback.className = "";
+        summaryDiv.innerHTML = "";
+        scoreDiv.textContent = "";
+        stopTimer();
+    }
+
+    // ---------- OTÁZKA ----------
+    function showQuestion() {
+        if (currentIndex >= currentQuestions.length) {
+            if (mode === "practice") {
+                currentIndex = 0;
             } else {
-                // Nouzové řešení, kdyby previousSectionId neexistovalo (např. při refreshnutí stránky na této obrazovce)
-                navigateTo('#intro-screen');
-            }
-        }
-
-
-        // Inicializace select boxů
-        function initializeSelectionScreen() {
-            const subjectData = appData[currentSubjectId];
-            if (!subjectData) return;
-
-            document.getElementById('selection-title').textContent = subjectData.name + " – Výběr";
-
-            const gradeSelect = document.getElementById('grade-select');
-            // Vyčistíme staré možnosti
-            gradeSelect.innerHTML = '<option value="">Vyberte ročník</option>';
-
-            // Přidáme možnosti ročníků
-            subjectData.grades.forEach(grade => {
-                const option = document.createElement('option');
-                option.value = grade;
-                option.textContent = grade + ". třída";
-                gradeSelect.appendChild(option);
-            });
-
-            // Vyvoláme updateTopics, aby se inicializovala i témata pro první ročník (pokud existuje)
-            updateTopics();
-        }
-
-        // Aktualizuje témata po změně ročníku
-        function updateTopics() {
-            const gradeSelect = document.getElementById('grade-select');
-            const topicSelect = document.getElementById('topic-select');
-            const selectedGrade = parseInt(gradeSelect.value);
-            const subjectData = appData[currentSubjectId];
-
-            topicSelect.innerHTML = '<option value="">Vyberte téma</option>';
-
-            if (selectedGrade && subjectData && subjectData.topics[selectedGrade]) {
-                const topics = subjectData.topics[selectedGrade];
-                topics.forEach((topic, index) => {
-                    const option = document.createElement('option');
-                    // Index tématu použijeme jako hodnotu
-                    option.value = index;
-                    option.textContent = topic.topicName;
-                    topicSelect.appendChild(option);
-                });
-            }
-        }
-
-        // Funkce pro spuštění kvízu (ZATÍM PRÁZDNÁ - ZDE MUSÍ BÝT VAŠE LOGIKA)
-        function startQuiz() {
-            const selectedGrade = document.getElementById('grade-select').value;
-            const selectedTopicIndex = document.getElementById('topic-select').value;
-            const isPracticeMode = document.getElementById('mode-practice').classList.contains('active');
-
-            if (!selectedGrade || selectedTopicIndex === "") {
-                alert("Prosím, vyberte ročník a téma.");
+                finishTest();
                 return;
             }
-
-            // Zde musí následovat vaše implementace:
-            // 1. Načíst správná data z appData
-            // 2. Zamíchat otázky/odpovědi (pro test)
-            // 3. Spustit časovač (pro test)
-            // 4. Začít zobrazovat první otázku v divu #quiz-area
-
-            console.log(`Spouštím kvíz: Předmět ${currentSubjectId}, Ročník ${selectedGrade}, Téma Index ${selectedTopicIndex}, Režim: ${isPracticeMode ? 'Procvičování' : 'Ostrý test'}`);
-            
-            // alert("Logika kvízu zatím není implementována!");
         }
 
-        // Přepínání aktivního tlačítka režimu (Procvičovat/Ostrý test)
-        document.getElementById('mode-practice').addEventListener('click', function() {
-            this.classList.add('active');
-            document.getElementById('mode-test').classList.remove('active');
+        const q = currentQuestions[currentIndex];
+        topicPill.textContent = currentTopic;
+        questionText.textContent = `Otázka ${currentIndex + 1}: ${q.text}`;
+        optionsList.innerHTML = "";
+        feedback.textContent = "";
+        feedback.className = "";
+
+        const labels = ["A", "B", "C", "D", "E", "F"];
+
+        q.options.forEach((opt, index) => {
+            const li = document.createElement("li");
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "option-button";
+
+            const lab = document.createElement("span");
+            lab.className = "option-label";
+            lab.textContent = labels[index] || "?";
+
+            const spanText = document.createElement("span");
+            spanText.className = "option-text";
+            spanText.textContent = opt;
+
+            btn.appendChild(lab);
+            btn.appendChild(spanText);
+
+            btn.addEventListener("click", () => handleAnswer(index));
+
+            li.appendChild(btn);
+            optionsList.appendChild(li);
         });
 
-        document.getElementById('mode-test').addEventListener('click', function() {
-            this.classList.add('active');
-            document.getElementById('mode-practice').classList.remove('active');
+        if (mode === "practice") {
+            nextBtn.disabled = true;
+        }
+    }
+
+    // ---------- ODPOVĚĎ ----------
+    function handleAnswer(selectedIndex) {
+        const q = currentQuestions[currentIndex];
+
+        if (mode === "practice") {
+            const buttons = optionsList.querySelectorAll(".option-button");
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.correctIndex) {
+                    btn.classList.add("correct");
+                } else if (idx === selectedIndex && selectedIndex !== q.correctIndex) {
+                    btn.classList.add("wrong");
+                }
+            });
+
+            if (selectedIndex === q.correctIndex) {
+                feedback.textContent = "Správně! 👍";
+                feedback.className = "ok";
+            } else {
+                feedback.textContent = "Špatně. Správná odpověď je zvýrazněna zeleně.";
+                feedback.className = "bad";
+            }
+            nextBtn.disabled = false;
+        } else {
+            userAnswers[currentIndex] = selectedIndex;
+            currentIndex++;
+            if (currentIndex < currentQuestions.length) {
+                showQuestion();
+            } else {
+                finishTest();
+            }
+        }
+    }
+
+    nextBtn.addEventListener("click", () => {
+        currentIndex++;
+        showQuestion();
+    });
+
+    finishBtn.addEventListener("click", () => {
+        finishTest();
+    });
+
+    // ---------- VYHODNOCENÍ ----------
+    function finishTest() {
+        stopTimer();
+        let total = currentQuestions.length;
+        correctCount = 0;
+
+        for (let i = 0; i < total; i++) {
+            if (userAnswers[i] === currentQuestions[i].correctIndex) {
+                correctCount++;
+            }
+        }
+
+        const percent = Math.round((correctCount / total) * 100);
+        scoreDiv.textContent = `Výsledek: ${correctCount} z ${total} bodů (${percent} %).`;
+
+        let html = "<h3>Přehled odpovědí</h3>";
+        html += "<table><tr><th>#</th><th>Otázka</th><th>Tvoje odpověď</th><th>Správná odpověď</th></tr>";
+
+        currentQuestions.forEach((q, index) => {
+            const userIndex = userAnswers[index];
+            const userText = userIndex != null ? q.options[userIndex] : "neodpovězeno";
+            const correctText = q.options[q.correctIndex];
+
+            html += `<tr>
+                        <td>${index + 1}</td>
+                        <td>${q.text}</td>
+                        <td>${userText}</td>
+                        <td>${correctText}</td>
+                    </tr>`;
         });
 
-    </script>
+        html += "</table>";
+        summaryDiv.innerHTML = html;
+    }
+
+    // ---------- ČASOVAČ ----------
+    function startTimer() {
+        updateTimerDisplay();
+        timerId = setInterval(() => {
+            timeLeft--;
+            if (timeLeft <= 0) {
+                timeLeft = 0;
+                updateTimerDisplay();
+                finishTest();
+            } else {
+                updateTimerDisplay();
+            }
+        }, 1000);
+    }
+
+    function stopTimer() {
+        if (timerId !== null) {
+            clearInterval(timerId);
+            timerId = null;
+        }
+    }
+
+    function updateTimerDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerDiv.textContent = timeLeft > 0
+            ? `Zbývající čas: ${minutes}:${seconds.toString().padStart(2, "0")}`
+            : "";
+    }
+
+    // ---------- POMOCNÉ FUNKCE ----------
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function prepareQuestions(allQuestions) {
+        const prepared = allQuestions.map(original => {
+            const indices = original.options.map((_, idx) => idx);
+            shuffleArray(indices);
+
+            const newOptions = indices.map(i => original.options[i]);
+            const newCorrectIndex = indices.indexOf(original.correctIndex);
+
+            return {
+                text: original.text,
+                options: newOptions,
+                correctIndex: newCorrectIndex
+            };
+        });
+
+        shuffleArray(prepared);
+        return prepared;
+    }
+</script>
 </body>
 </html>
