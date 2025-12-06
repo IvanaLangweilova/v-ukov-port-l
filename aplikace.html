@@ -1054,23 +1054,59 @@
 ],
 
 
-            "Převody jednotek": [
-                {
-                    text: "Převeď: 3 m = ? cm",
-                    options: ["30 cm", "300 cm", "3000 cm", "3 cm"],
-                    correctIndex: 1
-                },
-                {
-                    text: "Převeď: 0,5 kg = ? g",
-                    options: ["5 g", "50 g", "500 g", "5000 g"],
-                    correctIndex: 2
-                },
-                {
-                    text: "Převeď: 2 000 ml = ? l",
-                    options: ["0,2 l", "2 l", "20 l", "200 l"],
-                    correctIndex: 1
-                }
-            ],
+          "Převody jednotek": [
+    {
+        text: "Převeď: 3 m = ? cm",
+        options: ["30 cm", "300 cm", "3000 cm", "3 cm"],
+        correctIndex: 1
+    },
+    {
+        text: "Převeď: 0,5 kg = ? g",
+        options: ["5 g", "50 g", "500 g", "5000 g"],
+        correctIndex: 2
+    },
+    {
+        text: "Převeď: 2 000 ml = ? l",
+        options: ["0,2 l", "2 l", "20 l", "200 l"],
+        correctIndex: 1
+    },
+    {
+        text: "Převeď: 4 km = ? m",
+        options: ["400 m", "4 000 m", "40 000 m", "40 m"],
+        correctIndex: 1
+    },
+    {
+        text: "Převeď: 250 cm = ? m",
+        options: ["0,25 m", "2,5 m", "25 m", "0,025 m"],
+        correctIndex: 0
+    },
+    {
+        text: "Převeď: 3,5 l = ? ml",
+        options: ["350 ml", "3 500 ml", "35 ml", "35 000 ml"],
+        correctIndex: 1
+    },
+    {
+        text: "Převeď: 1,2 t = ? kg",
+        options: ["12 kg", "120 kg", "1 200 kg", "12 000 kg"],
+        correctIndex: 2
+    },
+    {
+        text: "Převeď: 90 minut = ? hodin",
+        options: ["1,5 h", "9 h", "0,9 h", "2,5 h"],
+        correctIndex: 0
+    },
+    {
+        text: "Převeď: 5 m² = ? cm²",
+        options: ["500 cm²", "5 000 cm²", "50 000 cm²", "500 000 cm²"],
+        correctIndex: 3   // m² → cm²: ×10000
+    },
+    {
+        text: "Převeď: 0,03 km² = ? m²",
+        options: ["3 000 m²", "30 000 m²", "300 000 m²", "3 000 000 m²"],
+        correctIndex: 2   // km² → m²: ×1 000 000 → 0,03×1 000 000 = 30 000 (POZOR → viz níže)
+    }
+],
+
 
             "Slovní úlohy": [
                 {
@@ -1425,6 +1461,7 @@
 </script>
 </body>
 </html>
+
 
 
 
