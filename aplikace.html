@@ -6,38 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-        * {<style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-
-        /* Pastelové křídové pozadí – stejné jako na úvodní stránce */
-        background: 
-            radial-gradient(circle at 15% 20%, rgba(255, 234, 167, 0.55), transparent 60%),
-            radial-gradient(circle at 85% 30%, rgba(250, 177, 160, 0.55), transparent 60%),
-            radial-gradient(circle at 30% 85%, rgba(129, 236, 236, 0.55), transparent 60%),
-            radial-gradient(circle at 80% 80%, rgba(116, 185, 255, 0.55), transparent 60%),
-            #ffffff;
-
-        background-attachment: fixed;
-        background-size: cover;
-
-        /* tohle už tam možná máš – necháme, ať funguje rozložení */
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-    img {
-        width: 200px;
-        cursor: pointer;
-        transition: transform 0.2s;
-    }
-
-    img:hover {
-        transform: scale(1.05);
-    }
-</style>
+        * {
             box-sizing: border-box;
         }
 
@@ -45,7 +14,17 @@
             margin: 0;
             padding: 0;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: linear-gradient(135deg, #74b9ff, #a29bfe, #ffeaa7);
+
+            /* Pastelové křídové pozadí – stejné jako na úvodní stránce */
+            background:
+                radial-gradient(circle at 15% 20%, rgba(255, 234, 167, 0.55), transparent 60%),
+                radial-gradient(circle at 85% 30%, rgba(250, 177, 160, 0.55), transparent 60%),
+                radial-gradient(circle at 30% 85%, rgba(129, 236, 236, 0.55), transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(116, 185, 255, 0.55), transparent 60%),
+                #ffffff;
+            background-attachment: fixed;
+            background-size: cover;
+
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -162,7 +141,8 @@
             border: none;
             font-weight: 600;
             letter-spacing: 0.02em;
-            transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, opacity 0.12s ease;
+            transition: transform 0.12s ease, box-shadow 0.12s ease,
+                        background-color 0.12s ease, opacity 0.12s ease;
         }
 
         button:disabled {
@@ -528,6 +508,7 @@
         }
     </style>
 </head>
+
 <body>
 <header>
     <h1>Výukový portál ZŠ</h1>
@@ -562,7 +543,9 @@
             <div class="subjects-header">
                 <div>
                     <div class="subjects-title">Vyber předmět – 2. stupeň ZŠ</div>
-                    <div class="subjects-subtitle">Zatím je plně funkční matematika (7. ročník), ostatní předměty jsou připravené k rozšíření.</div>
+                    <div class="subjects-subtitle">
+                        Zatím je plně funkční matematika (7. ročník), ostatní předměty jsou připravené k rozšíření.
+                    </div>
                 </div>
                 <button id="btn-back-intro" class="btn-outline" type="button">Zpět na výběr stupně</button>
             </div>
@@ -623,7 +606,9 @@
             <div class="subjects-header">
                 <div>
                     <div class="subjects-title" id="quiz-title">Matematika – procvičování</div>
-                    <div class="subjects-subtitle">Vyber ročník, téma a režim (procvičování nebo ostrý test).</div>
+                    <div class="subjects-subtitle">
+                        Vyber ročník, téma a režim (procvičování nebo ostrý test).
+                    </div>
                 </div>
                 <button id="btn-back-subjects" class="btn-outline" type="button">Změnit předmět</button>
             </div>
@@ -1194,7 +1179,6 @@
         return prepared;
     }
 </script>
+
 </body>
 </html>
-
-
