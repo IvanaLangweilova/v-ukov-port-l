@@ -1209,10 +1209,15 @@ function showScreen(screen) {
     if (screen === "quiz") screenQuiz.classList.add("active");
 }
 
+// 2. STUPEŇ – normálně pokračuje
 btn2nd.addEventListener("click", () => {
     showScreen("subjects");
-    btn1st.addEventListener("click", () => {
-    showScreen("subjects");
+});
+
+// 1. STUPEŇ – zatím není hotový → zobrazí jen hlášku
+btn1st.addEventListener("click", () => {
+    alert("Část pro 1. stupeň ZŠ je ve vývoji a brzy bude doplněna.");
+});
 });
 });
 
@@ -1483,6 +1488,7 @@ document.getElementById("btn-1st").addEventListener("click", () => {
 </script>
 </body>
 </html>
+
 
 
 
