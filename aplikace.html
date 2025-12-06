@@ -8,11 +8,11 @@
     <style>
         * {<style>
     body {
-        text-align: center;
-        margin-top: 60px;
+        margin: 0;
+        padding: 0;
         font-family: Arial, sans-serif;
 
-        /* PASTEL KŘÍDOVÉ POZADÍ */
+        /* Pastelové křídové pozadí – stejné jako na úvodní stránce */
         background: 
             radial-gradient(circle at 15% 20%, rgba(255, 234, 167, 0.55), transparent 60%),
             radial-gradient(circle at 85% 30%, rgba(250, 177, 160, 0.55), transparent 60%),
@@ -22,8 +22,12 @@
 
         background-attachment: fixed;
         background-size: cover;
-    }
 
+        /* tohle už tam možná máš – necháme, ať funguje rozložení */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
     img {
         width: 200px;
         cursor: pointer;
@@ -1192,4 +1196,5 @@
 </script>
 </body>
 </html>
+
 
