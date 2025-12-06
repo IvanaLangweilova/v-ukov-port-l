@@ -1381,9 +1381,24 @@
     </div>
 </main>
 
-<script>
-    // ---------- OTÁZKY – MATEMATIKA, 7. ROČNÍK ----------
-   const QUESTIONS = {
+
+       <script>
+// ---------- OTÁZKY – MATEMATIKA, 7. ROČNÍK ----------
+const QUESTIONS = {
+  "7. ročník": {
+    ...
+  }
+};
+
+// ---------- STAV ----------
+let currentSubject = null;
+let mode = "practice";
+...
+function prepareQuestions(allQuestions) {
+  ...
+}
+</script>
+
     "7. ročník": {
         "Zlomky a racionální čísla": [
             {
@@ -1866,342 +1881,7 @@
 
 
     // ---------- STAV ----------
-    let currentSubject = null;
-    let mode = "practice";
-    let currentGrade = "7. ročník";
-    let currentTopic = "Zlomky a racionální čísla";
-
-    let currentQuestions = [];
-    let currentIndex = 0;
-    let userAnswers = [];
-    let correctCount = 0;
-
-    let timerId = null;
-    let timeLeft = 0;
-    const TEST_QUESTION_COUNT = 10;
-    const TEST_TIME_LIMIT = 10 * 60; // 10 minut
-
-    // ---------- DOM ELEMENTY ----------
-    const screenIntro = document.getElementById("screen-intro");
-    const screen1st = document.getElementById("screen-1st");
-    const screenSubjects = document.getElementById("screen-subjects");
-    const screenQuiz = document.getElementById("screen-quiz");
-
-    const btn1st = document.getElementById("btn-1st");
-    const btn2nd = document.getElementById("btn-2nd");
-    const btnBackIntro = document.getElementById("btn-back-intro");
-    const btnBackIntro1st = document.getElementById("btn-back-intro-1st");
-    const btnBackSubjects = document.getElementById("btn-back-subjects");
-
-    const quizTitle = document.getElementById("quiz-title");
-
-    const gradeSelect = document.getElementById("grade");
-    const topicSelect = document.getElementById("topic");
-    const modePracticeBtn = document.getElementById("mode-practice");
-    const modeTestBtn = document.getElementById("mode-test");
-    const startBtn = document.getElementById("start-btn");
-
-    const quizArea = document.getElementById("quiz-area");
-    const questionText = document.getElementById("question-text");
-    const topicPill = document.getElementById("topic-pill");
-    const optionsList = document.getElementById("options-list");
-    const feedback = document.getElementById("feedback");
-    const timerDiv = document.getElementById("timer");
-    const scoreDiv = document.getElementById("score");
-    const nextBtn = document.getElementById("next-btn");
-    const finishBtn = document.getElementById("finish-btn");
-    const summaryDiv = document.getElementById("summary");
-
-    // ---------- OBRAZOVKY ----------
-    function showScreen(screen) {
-        screenIntro.classList.remove("active");
-        screen1st.classList.remove("active");
-        screenSubjects.classList.remove("active");
-        screenQuiz.classList.remove("active");
-
-        if (screen === "intro") screenIntro.classList.add("active");
-        if (screen === "subjects1st") screen1st.classList.add("active");
-        if (screen === "subjects") screenSubjects.classList.add("active");
-        if (screen === "quiz") screenQuiz.classList.add("active");
-    }
-
-    // 1. stupeň
-    btn1st.addEventListener("click", () => {
-        showScreen("subjects1st");
-    });
-
-    btnBackIntro1st.addEventListener("click", () => {
-        showScreen("intro");
-    });
-
-    // 2. stupeň – výběr předmětů
-    btn2nd.addEventListener("click", () => {
-        showScreen("subjects");
-    });
-
-    btnBackIntro.addEventListener("click", () => {
-        showScreen("intro");
-    });
-
-    btnBackSubjects.addEventListener("click", () => {
-        resetState();
-        quizArea.style.display = "none";
-        showScreen("subjects");
-    });
-
-    document.querySelectorAll(".subject-card[data-subject='matematika']").forEach(card => {
-        card.addEventListener("click", () => {
-            currentSubject = "matematika";
-            quizTitle.textContent = "Matematika – procvičování";
-            showScreen("quiz");
-        });
-    });
-
-    // ---------- REŽIMY ----------
-    modePracticeBtn.addEventListener("click", () => {
-        mode = "practice";
-        modePracticeBtn.classList.add("active");
-        modeTestBtn.classList.remove("active");
-    });
-
-    modeTestBtn.addEventListener("click", () => {
-        mode = "test";
-        modeTestBtn.classList.add("active");
-        modePracticeBtn.classList.remove("active");
-    });
-
-    // ---------- START ----------
-    startBtn.addEventListener("click", () => {
-        currentGrade = gradeSelect.value;
-        currentTopic = topicSelect.value;
-
-        if (!QUESTIONS[currentGrade] || !QUESTIONS[currentGrade][currentTopic]) {
-            alert("Pro zvolený ročník a téma zatím nejsou připravené otázky.");
-            return;
-        }
-
-        startQuiz();
-    });
-
-    function startQuiz() {
-        resetState();
-
-        const allQuestions = QUESTIONS[currentGrade][currentTopic];
-        const preparedQuestions = prepareQuestions(allQuestions);
-
-        if (mode === "test") {
-            currentQuestions = preparedQuestions.slice(0, Math.min(TEST_QUESTION_COUNT, preparedQuestions.length));
-            timeLeft = TEST_TIME_LIMIT;
-            startTimer();
-            finishBtn.style.display = "inline-block";
-            nextBtn.style.display = "none";
-        } else {
-            currentQuestions = preparedQuestions;
-            finishBtn.style.display = "none";
-            nextBtn.style.display = "inline-block";
-            timerDiv.textContent = "";
-        }
-
-        quizArea.style.display = "block";
-        showQuestion();
-    }
-
-    function resetState() {
-        currentIndex = 0;
-        userAnswers = [];
-        correctCount = 0;
-        feedback.textContent = "";
-        feedback.className = "";
-        summaryDiv.innerHTML = "";
-        scoreDiv.textContent = "";
-        stopTimer();
-    }
-
-    // ---------- OTÁZKA ----------
-    function showQuestion() {
-        if (currentIndex >= currentQuestions.length) {
-            if (mode === "practice") {
-                currentIndex = 0;
-            } else {
-                finishTest();
-                return;
-            }
-        }
-
-        const q = currentQuestions[currentIndex];
-        topicPill.textContent = currentTopic;
-        questionText.textContent = `Otázka ${currentIndex + 1}: ${q.text}`;
-        optionsList.innerHTML = "";
-        feedback.textContent = "";
-        feedback.className = "";
-
-        const labels = ["A", "B", "C", "D", "E", "F"];
-
-        q.options.forEach((opt, index) => {
-            const li = document.createElement("li");
-            const btn = document.createElement("button");
-            btn.type = "button";
-            btn.className = "option-button";
-
-            const lab = document.createElement("span");
-            lab.className = "option-label";
-            lab.textContent = labels[index] || "?";
-
-            const spanText = document.createElement("span");
-            spanText.className = "option-text";
-            spanText.textContent = opt;
-
-            btn.appendChild(lab);
-            btn.appendChild(spanText);
-
-            btn.addEventListener("click", () => handleAnswer(index));
-
-            li.appendChild(btn);
-            optionsList.appendChild(li);
-        });
-
-        if (mode === "practice") {
-            nextBtn.disabled = true;
-        }
-    }
-
-    // ---------- ODPOVĚĎ ----------
-    function handleAnswer(selectedIndex) {
-        const q = currentQuestions[currentIndex];
-
-        if (mode === "practice") {
-            const buttons = optionsList.querySelectorAll(".option-button");
-            buttons.forEach((btn, idx) => {
-                btn.disabled = true;
-                if (idx === q.correctIndex) {
-                    btn.classList.add("correct");
-                } else if (idx === selectedIndex && selectedIndex !== q.correctIndex) {
-                    btn.classList.add("wrong");
-                }
-            });
-
-            if (selectedIndex === q.correctIndex) {
-                feedback.textContent = "Správně! 👍";
-                feedback.className = "ok";
-            } else {
-                feedback.textContent = "Špatně. Správná odpověď je zvýrazněna zeleně.";
-                feedback.className = "bad";
-            }
-            nextBtn.disabled = false;
-        } else {
-            userAnswers[currentIndex] = selectedIndex;
-            currentIndex++;
-            if (currentIndex < currentQuestions.length) {
-                showQuestion();
-            } else {
-                finishTest();
-            }
-        }
-    }
-
-    nextBtn.addEventListener("click", () => {
-        currentIndex++;
-        showQuestion();
-    });
-
-    finishBtn.addEventListener("click", () => {
-        finishTest();
-    });
-
-    // ---------- VYHODNOCENÍ ----------
-    function finishTest() {
-        stopTimer();
-        let total = currentQuestions.length;
-        correctCount = 0;
-
-        for (let i = 0; i < total; i++) {
-            if (userAnswers[i] === currentQuestions[i].correctIndex) {
-                correctCount++;
-            }
-        }
-
-        const percent = Math.round((correctCount / total) * 100);
-        scoreDiv.textContent = `Výsledek: ${correctCount} z ${total} bodů (${percent} %).`;
-
-        let html = "<h3>Přehled odpovědí</h3>";
-        html += "<table><tr><th>#</th><th>Otázka</th><th>Tvoje odpověď</th><th>Správná odpověď</th></tr>";
-
-        currentQuestions.forEach((q, index) => {
-            const userIndex = userAnswers[index];
-            const userText = userIndex != null ? q.options[userIndex] : "neodpovězeno";
-            const correctText = q.options[q.correctIndex];
-
-            html += `<tr>
-                        <td>${index + 1}</td>
-                        <td>${q.text}</td>
-                        <td>${userText}</td>
-                        <td>${correctText}</td>
-                    </tr>`;
-        });
-
-        html += "</table>";
-        summaryDiv.innerHTML = html;
-    }
-
-    // ---------- ČASOVAČ ----------
- function startTimer() {
-    timeLeft = TEST_TIME_LIMIT;       // nastavíme zbývající čas
-    updateTimerDisplay();
-
-    timerId = setInterval(() => {
-        timeLeft--;
-        if (timeLeft <= 0) {
-            timeLeft = 0;
-            updateTimerDisplay();
-            finishTest();
-        } else {
-            updateTimerDisplay();
-        }
-    }, 1000);
-}
-
-
-    function stopTimer() {
-        if (timerId !== null) {
-            clearInterval(timerId);
-            timerId = null;
-        }
-    }
-
-    function updateTimerDisplay() {
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
-        timerDiv.textContent = timeLeft > 0
-            ? `Zbývající čas: ${minutes}:${seconds.toString().padStart(2, "0")}`
-            : "";
-    }
-
-    // ---------- POMOCNÉ FUNKCE ----------
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
-    function prepareQuestions(allQuestions) {
-        const prepared = allQuestions.map(original => {
-            const indices = original.options.map((_, idx) => idx);
-            shuffleArray(indices);
-
-            const newOptions = indices.map(i => original.options[i]);
-            const newCorrectIndex = indices.indexOf(original.correctIndex);
-
-            return {
-                text: original.text,
-                options: newOptions,
-                correctIndex: newCorrectIndex
-            };
-        });
-
-        shuffleArray(prepared);
-        return prepared;
-    }
+    
 </script>
 </body>
 </html>
@@ -2543,6 +2223,7 @@
 </script>
 </body>
 </html>
+
 
 
 
