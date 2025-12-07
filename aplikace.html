@@ -1548,7 +1548,10 @@ startBtn.addEventListener("click", () => {
 function startQuiz() {
     resetState();
 
-    const allQuestions = QUESTIONS[currentGrade][currentTopic];
+  const allQuestions =
+    currentSubject === "cestina"
+        ? QUESTIONS_CJ[currentGrade][currentTopic]
+        : QUESTIONS[currentGrade][currentTopic];
     const preparedQuestions = prepareQuestions(allQuestions);
 
     if (mode === "test") {
@@ -1819,6 +1822,7 @@ Verze dvě od googlu
     </style>
 </head>
 <body>
+
 
 
 
