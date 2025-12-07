@@ -1537,10 +1537,12 @@ startBtn.addEventListener("click", () => {
     currentGrade = gradeSelect.value;
     currentTopic = topicSelect.value;
 
-    if (!QUESTIONS[currentGrade] || !QUESTIONS[currentGrade][currentTopic]) {
-        alert("Pro zvolený ročník a téma zatím nejsou připravené otázky.");
-        return;
-    }
+   const source = currentSubject === "cestina" ? QUESTIONS_CJ : QUESTIONS;
+
+if (!source[currentGrade] || !source[currentGrade][currentTopic]) {
+    alert("Pro zvolený ročník a téma zatím nejsou připravené otázky.");
+    return;
+}
 
     startQuiz();
 });
@@ -1822,6 +1824,7 @@ Verze dvě od googlu
     </style>
 </head>
 <body>
+
 
 
 
