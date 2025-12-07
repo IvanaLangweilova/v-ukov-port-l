@@ -1507,7 +1507,18 @@ document.querySelectorAll(".subject-card[data-subject='matematika']").forEach(ca
         showScreen("quiz");
     });
 });
+// ---------- ČESKÝ JAZYK ----------
+document.querySelectorAll(".subject-card[data-subject='cestina']").forEach(card => {
+    card.addEventListener("click", () => {
+        currentSubject = "cestina";
+        quizTitle.textContent = "Český jazyk – procvičování";
 
+        currentGrade = "7. ročník";
+        currentTopic = "Mluvnice – slovní druhy a tvarosloví";
+
+        showScreen("quiz");
+    });
+});
 // ---------- REŽIMY ----------
 modePracticeBtn.addEventListener("click", () => {
     mode = "practice";
@@ -1808,6 +1819,7 @@ Verze dvě od googlu
     </style>
 </head>
 <body>
+
 
 
 
