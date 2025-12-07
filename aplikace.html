@@ -1500,32 +1500,70 @@ btnBackSubjects.addEventListener("click", () => {
     showScreen("subjects");
 });
 
+// 2. stupeň – výběr předmětů
+btn2nd.addEventListener("click", () => {
+    showScreen("subjects");
+});
+
+// Zpět z výběru předmětů na úvod
+btnBackIntro.addEventListener("click", () => {
+    showScreen("intro");
+});
+
+// MATEMATIKA
 document.querySelectorAll(".subject-card[data-subject='matematika']").forEach(card => {
     card.addEventListener("click", () => {
         currentSubject = "matematika";
         quizTitle.textContent = "Matematika – procvičování";
+
+        // 7. ročník jako výchozí
+        currentGrade = "7. ročník";
+        gradeSelect.value = "7. ročník";
+
+        // Matematická témata
+        topicSelect.innerHTML = `
+            <option value="Zlomky a racionální čísla">Zlomky a racionální čísla</option>
+            <option value="Desetinná čísla">Desetinná čísla</option>
+            <option value="Jednoduché rovnice">Jednoduché rovnice</option>
+            <option value="Úhly">Úhly</option>
+            <option value="Trojúhelník">Trojúhelník</option>
+            <option value="Mnohoúhelníky a osová souměrnost">Mnohoúhelníky a osová souměrnost</option>
+            <option value="Objem a povrch kvádru a krychle">Objem a povrch kvádru a krychle</option>
+            <option value="Převody jednotek">Převody jednotek</option>
+            <option value="Slovní úlohy">Slovní úlohy</option>
+        `;
+        currentTopic = "Zlomky a racionální čísla";
+
         showScreen("quiz");
     });
 });
-// ---------- ČESKÝ JAZYK ----------
+
+// ČESKÝ JAZYK
 document.querySelectorAll(".subject-card[data-subject='cestina']").forEach(card => {
     card.addEventListener("click", () => {
         currentSubject = "cestina";
         quizTitle.textContent = "Český jazyk – procvičování";
 
+        // 7. ročník jako výchozí
         currentGrade = "7. ročník";
+        gradeSelect.value = "7. ročník";
+
+        // Témata pro český jazyk
+        topicSelect.innerHTML = `
+            <option value="Mluvnice – slovní druhy a tvarosloví">Mluvnice – slovní druhy a tvarosloví</option>
+            <option value="Skladba – větné členy a souvětí">Skladba – větné členy a souvětí</option>
+            <option value="Pravopis">Pravopis</option>
+            <option value="Sloh a komunikace">Sloh a komunikace</option>
+            <option value="Literatura">Literatura</option>
+        `;
         currentTopic = "Mluvnice – slovní druhy a tvarosloví";
-// Přepíšeme nabídku témat podle českého jazyka
-topicSelect.innerHTML = `
-    <option value="Mluvnice – slovní druhy a tvarosloví">Mluvnice – slovní druhy a tvarosloví</option>
-    <option value="Skladba – větné členy a souvětí">Skladba – větné členy a souvětí</option>
-    <option value="Pravopis">Pravopis</option>
-    <option value="Sloh a komunikace">Sloh a komunikace</option>
-    <option value="Literatura">Literatura</option>
-`;
+
         showScreen("quiz");
     });
 });
+
+// --------- REŽIMY ---------
+
 // ---------- REŽIMY ----------
 modePracticeBtn.addEventListener("click", () => {
     mode = "practice";
@@ -1775,6 +1813,7 @@ function prepareQuestions(allQuestions) {
 </script>
 </body>
 </html>
+
 
 
 
