@@ -1515,7 +1515,14 @@ document.querySelectorAll(".subject-card[data-subject='cestina']").forEach(card 
 
         currentGrade = "7. ročník";
         currentTopic = "Mluvnice – slovní druhy a tvarosloví";
-
+// Přepíšeme nabídku témat podle českého jazyka
+topicSelect.innerHTML = `
+    <option value="Mluvnice – slovní druhy a tvarosloví">Mluvnice – slovní druhy a tvarosloví</option>
+    <option value="Skladba – větné členy a souvětí">Skladba – větné členy a souvětí</option>
+    <option value="Pravopis">Pravopis</option>
+    <option value="Sloh a komunikace">Sloh a komunikace</option>
+    <option value="Literatura">Literatura</option>
+`;
         showScreen("quiz");
     });
 });
@@ -1824,6 +1831,7 @@ Verze dvě od googlu
     </style>
 </head>
 <body>
+
 
 
 
