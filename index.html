@@ -125,6 +125,11 @@
             .item-book   { bottom: -10px; left: -15px; }
             .item-globe  { bottom: -10px; right: -15px; }
         }
+        @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
     </style>
 </head>
 
@@ -142,6 +147,12 @@
     <div class="tool tool--ruler">📐</div>
     <div class="tool tool--abacus">🧮</div>
     <div class="tool tool--notebook">📓</div>
+    .tool {
+    position: absolute;
+    font-size: 80px;      /* tvoje nová velikost */
+    opacity: 0.9;
+    animation: float 3s ease-in-out infinite;
+}
 </div>
 
         <p class="landing-text">
@@ -156,6 +167,7 @@
     </main>
 </body>
 </html>
+
 
 
 
