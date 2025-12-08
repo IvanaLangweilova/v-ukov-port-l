@@ -21,82 +21,88 @@
             text-align: center;
         }
 
+        /* Scéna kolem loga */
+        .landing-scene {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Hlavní logo */
         .landing-logo {
-            width: 230px;
-            max-width: 70vw;
+            width: 220px;
+            max-width: 60vw;
+            display: block;
+            margin: 0 auto;
+            border-radius: 24px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
             cursor: pointer;
-            border-radius: 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        .landing-scene {
-    position: relative;
-    display: inline-block;
-}
-
-/* Hlavní logo */
-.landing-logo {
-    width: 220px;
-    max-width: 60vw;
-    display: block;
-    margin: 0 auto;
-    border-radius: 24px;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
-}
-
-/* Všechny „pomůcky“ */
-.tool {
-    position: absolute;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    background: white;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
-}
-
-/* Konkrétní pozice kolem loga */
-.tool--book {
-    top: -10%;
-    left: -18%;
-}
-
-.tool--pencil {
-    top: 5%;
-    right: -18%;
-}
-
-.tool--ruler {
-    bottom: -8%;
-    left: -15%;
-}
-
-.tool--abacus {
-    bottom: -12%;
-    right: -12%;
-}
-
-.tool--notebook {
-    top: -22%;
-    right: 20%;
-}
-
-/* Trochu zmenšit na mobilech */
-@media (max-width: 600px) {
-    .tool {
-        width: 44px;
-        height: 44px;
-        font-size: 24px;
-    }
-}
-
 
         .landing-logo:hover {
             transform: scale(1.06);
             box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Všechny “pomůcky” kolem loga */
+        .tool {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+            opacity: 0.9;
+            animation-name: float;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+
+        /* Pozice + různé časy pohupování */
+        .tool--book {
+            top: -12%;
+            left: -20%;
+            animation-duration: 4.5s;
+            animation-delay: 0s;
+        }
+
+        .tool--pencil {
+            top: 2%;
+            right: -20%;
+            animation-duration: 3.8s;
+            animation-delay: 0.4s;
+        }
+
+        .tool--ruler {
+            bottom: -12%;
+            left: -18%;
+            animation-duration: 4.2s;
+            animation-delay: 0.7s;
+        }
+
+        .tool--abacus {
+            bottom: -15%;
+            right: -15%;
+            animation-duration: 3.6s;
+            animation-delay: 0.2s;
+        }
+
+        .tool--notebook {
+            top: -25%;
+            right: 10%;
+            animation-duration: 5s;
+            animation-delay: 0.6s;
+        }
+
+        /* Jemné pohupování */
+        @keyframes float {
+            0%   { transform: translateY(0px); }
+            50%  { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         .landing-text {
@@ -106,69 +112,38 @@
             color: #333;
         }
 
-        .landing-item {
-            position: absolute;
-            width: 70px;
-            opacity: 0.9;
-            pointer-events: none;
-        }
-
-        .item-pencil { top: -20px; left: -50px; }
-        .item-ruler  { top: 10%; right: -60px; }
-        .item-book   { bottom: -40px; left: -30px; }
-        .item-globe  { bottom: -30px; right: -40px; }
-
+        /* Mobilní úprava */
         @media (max-width: 600px) {
-            .landing-item { width: 50px; }
-            .item-pencil { top: -10px; left: -20px; }
-            .item-ruler  { top: 5%;  right: -20px; }
-            .item-book   { bottom: -10px; left: -15px; }
-            .item-globe  { bottom: -10px; right: -15px; }
+            .tool {
+                width: 60px;
+                height: 60px;
+                font-size: 32px;
+            }
         }
-        @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
     </style>
 </head>
 
 <body>
     <main class="landing">
 
-<div class="landing-scene">
-    <a href="aplikace.html">
-        <img src="ikona-aplikace.png" alt="Procvičování – vstup do aplikace" class="landing-logo">
-    </a>
+        <div class="landing-scene">
+            <a href="aplikace.html">
+                <img src="ikona-aplikace.png" 
+                     alt="Procvičování – vstup do aplikace" 
+                     class="landing-logo">
+            </a>
 
-    <!-- Školní pomůcky kolem loga -->
-    <div class="tool tool--book">📚</div>
-    <div class="tool tool--pencil">✏️</div>
-    <div class="tool tool--ruler">📐</div>
-    <div class="tool tool--abacus">🧮</div>
-    <div class="tool tool--notebook">📓</div>
-    .tool {
-    position: absolute;
-    font-size: 80px;      /* tvoje nová velikost */
-    opacity: 0.9;
-    animation: float 3s ease-in-out infinite;
-}
-</div>
+            <div class="tool tool--book">📚</div>
+            <div class="tool tool--pencil">✏️</div>
+            <div class="tool tool--ruler">📐</div>
+            <div class="tool tool--abacus">🧮</div>
+            <div class="tool tool--notebook">📓</div>
+        </div>
 
         <p class="landing-text">
             Klikni na tabulku a začni procvičovat 😊
         </p>
 
-        <img src="pomucka-tuzka.png"  alt="" class="landing-item item-pencil">
-        <img src="pomucka-pravitko.png" alt="" class="landing-item item-ruler">
-        <img src="pomucka-kniha.png"  alt="" class="landing-item item-book">
-        <img src="pomucka-globus.png" alt="" class="landing-item item-globe">
-
     </main>
 </body>
 </html>
-
-
-
-
-
