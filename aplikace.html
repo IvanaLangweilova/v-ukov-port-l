@@ -1813,10 +1813,34 @@ function prepareQuestions(allQuestions) {
     shuffleArray(prepared);
     return prepared;
 }
+<script>
+  // ... tady už máš svůj stávající script ...
+
+  // Na úplný konec scriptu vlož toto:
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn1st = document.getElementById("btn1st");
+    const btn2nd = document.getElementById("btn2nd");
+
+    if (btn1st) {
+      btn1st.addEventListener("click", () => {
+        // obrazovka s předměty pro 1. stupeň
+        showScreen("subjects1st");
+      });
+    }
+
+    if (btn2nd) {
+      btn2nd.addEventListener("click", () => {
+        // obrazovka s předměty pro 2. stupeň
+        showScreen("subjects");
+      });
+    }
+  });
+</script>
 
 </script>
 </body>
 </html>
+
 
 
 
