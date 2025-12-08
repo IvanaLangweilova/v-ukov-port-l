@@ -17,108 +17,86 @@
         }
 
         .landing {
-            position: relative;
             text-align: center;
         }
 
-        /* Scéna kolem loga */
         .landing-scene {
             position: relative;
             display: inline-block;
         }
 
-        /* Hlavní logo */
+        /* Hlavní logo – tlačítko */
         .landing-logo {
-            width: 220px;
-            max-width: 60vw;
-            display: block;
-            margin: 0 auto;
-            border-radius: 24px;
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+            width: 260px;
+            max-width: 70vw;
             cursor: pointer;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .landing-logo:hover {
             transform: scale(1.06);
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.28);
         }
 
-        /* Všechny “pomůcky” kolem loga */
+        /* Pomůcky */
         .tool {
             position: absolute;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
+            width: 95px;
+            height: 95px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 44px;
+            font-size: 55px;
             background: white;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
-            opacity: 0.9;
-            animation-name: float;
-            animation-timing-function: ease-in-out;
-            animation-iteration-count: infinite;
+            border-radius: 50%;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            opacity: 0.95;
+            animation: float 4s ease-in-out infinite;
         }
 
-        /* Pozice + různé časy pohupování */
+        /* Animace pro každý jinak */
         .tool--book {
-            top: -12%;
-            left: -20%;
+            top: -18%;
+            left: -25%;
             animation-duration: 4.5s;
-            animation-delay: 0s;
         }
 
         .tool--pencil {
-            top: 2%;
-            right: -20%;
-            animation-duration: 3.8s;
-            animation-delay: 0.4s;
+            top: 0%;
+            right: -25%;
+            animation-duration: 3.7s;
         }
 
         .tool--ruler {
-            bottom: -12%;
-            left: -18%;
-            animation-duration: 4.2s;
-            animation-delay: 0.7s;
+            bottom: -18%;
+            left: -22%;
+            animation-duration: 5s;
         }
 
         .tool--abacus {
-            bottom: -15%;
-            right: -15%;
-            animation-duration: 3.6s;
-            animation-delay: 0.2s;
+            bottom: -20%;
+            right: -20%;
+            animation-duration: 4.2s;
         }
 
         .tool--notebook {
-            top: -25%;
+            top: -28%;
             right: 10%;
-            animation-duration: 5s;
-            animation-delay: 0.6s;
+            animation-duration: 6s;
         }
 
-        /* Jemné pohupování */
         @keyframes float {
             0%   { transform: translateY(0px); }
-            50%  { transform: translateY(-10px); }
+            50%  { transform: translateY(-12px); }
             100% { transform: translateY(0px); }
         }
 
         .landing-text {
-            margin-top: 24px;
-            font-size: 1.2rem;
-            font-weight: 500;
+            margin-top: 28px;
+            font-size: 1.3rem;
             color: #333;
-        }
-
-        /* Mobilní úprava */
-        @media (max-width: 600px) {
-            .tool {
-                width: 60px;
-                height: 60px;
-                font-size: 32px;
-            }
         }
     </style>
 </head>
@@ -128,8 +106,8 @@
 
         <div class="landing-scene">
             <a href="aplikace.html">
-                <img src="ikona-aplikace.png" 
-                     alt="Procvičování – vstup do aplikace" 
+                <img src="ikona-aplikace.png"
+                     alt="Procvičování – vstup do aplikace"
                      class="landing-logo">
             </a>
 
@@ -140,9 +118,7 @@
             <div class="tool tool--notebook">📓</div>
         </div>
 
-        <p class="landing-text">
-            Klikni na tabulku a začni procvičovat 😊
-        </p>
+        <p class="landing-text">Klikni na tabulku a začni procvičovat 😊</p>
 
     </main>
 </body>
