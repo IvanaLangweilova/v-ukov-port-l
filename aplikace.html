@@ -1030,41 +1030,122 @@ const QUESTIONS_CJ = {
 const QUESTIONS_AJ = {
   "7. ročník": {
 
-    // 10 otázek – Slovní zásoba
-    "slovnik": [
-      { text: "Jak se anglicky řekne „škola“?", options: ["school", "shool", "skool", "scholl"], correctIndex: 0 },
-      { text: "Co znamená anglické slovo „dog“?", options: ["kočka", "pes", "pták", "králík"], correctIndex: 1 },
-      { text: "Co znamená slovo „teacher“?", options: ["žák", "učitel", "ředitel", "knihovník"], correctIndex: 1 },
-      { text: "Jak se řekne anglicky „jablko“?", options: ["pear", "banana", "apple", "orange"], correctIndex: 2 },
-      { text: "Co znamená slovo „family“?", options: ["rodina", "oběd", "dovolená", "škola"], correctIndex: 0 },
-      { text: "Jak se anglicky řekne „ráno“?", options: ["evening", "morning", "night", "afternoon"], correctIndex: 1 },
-      { text: "Jak přeložíš „knihkupectví“?", options: ["bookshop", "library", "bookcase", "school"], correctIndex: 0 },
-      { text: "Doplň větu: I have a new ___.", options: ["book", "books", "chair", "window"], correctIndex: 0 },
-      { text: "Co znamená slovo „always“?", options: ["někdy", "nikdy", "často", "vždy"], correctIndex: 3 },
-      { text: "Jak přeložíš „friend“?", options: ["rodina", "kamarád", "učitel", "spolužák"], correctIndex: 1 }
+    // ---------- OTÁZKY – ANGLIČTINA, 7. ROČNÍK ----------
+const QUESTIONS_AJ = {
+  "7. ročník": {
+    slovnik: [
+      {
+        text: "Jak se anglicky řekne „kočka“?",
+        options: ["cat", "dog", "bird", "cow"],
+        correctIndex: 0
+      },
+      {
+        text: "Jak se anglicky řekne „pondělí“?",
+        options: ["Sunday", "Monday", "Tuesday", "Friday"],
+        correctIndex: 1
+      },
+      {
+        text: "Jak se anglicky řekne „dědeček“?",
+        options: ["grandfather", "mother", "cousin", "sister"],
+        correctIndex: 0
+      },
+      {
+        text: "Které z těchto slov znamená „mrkev“?",
+        options: ["carrot", "tomato", "apple", "bread"],
+        correctIndex: 0
+      },
+      {
+        text: "Jak se anglicky řekne „knihovna“ (místnost se spoustou knih)?",
+        options: ["library", "bookshop", "school", "office"],
+        correctIndex: 0
+      },
+      {
+        text: "Jak se anglicky řekne „déšť“?",
+        options: ["rain", "snow", "wind", "sun"],
+        correctIndex: 0
+      },
+      {
+        text: "Které z těchto slov označuje dopravní prostředek?",
+        options: ["car", "table", "window", "milk"],
+        correctIndex: 0
+      },
+      {
+        text: "Jak se anglicky řekne „oběd“?",
+        options: ["lunch", "breakfast", "dinner", "snack"],
+        correctIndex: 0
+      },
+      {
+        text: "Jak se anglicky řekne „nemocnice“?",
+        options: ["hospital", "school", "cinema", "post office"],
+        correctIndex: 0
+      },
+      {
+        text: "Které z těchto slov je přídavné jméno?",
+        options: ["big", "table", "school", "brother"],
+        correctIndex: 0
+      }
     ],
 
-    // 10 otázek – Gramatika
-    "gramatika": [
-      { text: "Doplň: She ___ twelve years old.", options: ["is", "are", "am", "be"], correctIndex: 0 },
-      { text: "Doplň: They ___ football every weekend.", options: ["play", "plays", "playing", "is play"], correctIndex: 0 },
-      { text: "Vyber správnou otázku: ___ your name?", options: ["What is", "How is", "Who you", "Where your"], correctIndex: 0 },
-      { text: "Doplň zápor: I ___ like maths.", options: ["don't", "am not", "doesn't", "not"], correctIndex: 0 },
-      { text: "Doplň: My brother ___ in Brno.", options: ["live", "lives", "is live", "living"], correctIndex: 1 },
-      { text: "Doplň předložku: We have English ___ Monday.", options: ["in", "at", "on", "from"], correctIndex: 2 },
-      { text: "Vyber správný slovosled:", options: [
-          "I often play in the park.",
-          "Often I play in the park in.",
-          "In the park often I play.",
-          "Play I often in the park."
-        ], correctIndex: 0
+    gramatika: [
+      {
+        text: "Doplň správný tvar slovesa „to be“: „I ___ from the Czech Republic.“",
+        options: ["am", "is", "are", "be"],
+        correctIndex: 0
       },
-      { text: "Doplň: They ___ at home now.", options: ["is", "are", "am", "be"], correctIndex: 1 },
-      { text: "Doplň: Tom ___ a new bike.", options: ["has got", "have got", "got", "is got"], correctIndex: 0 },
-      { text: "Doplň: She ___ watches TV in the evening.", options: ["never", "never does", "does never", "isn't"], correctIndex: 0 }
+      {
+        text: "Doplň: „She ___ tennis on Mondays.“",
+        options: ["plays", "play", "is play", "playing"],
+        correctIndex: 0
+      },
+      {
+        text: "Doplň minulý čas slovesa „to be“: „They ___ at home yesterday.“",
+        options: ["were", "was", "are", "be"],
+        correctIndex: 0
+      },
+      {
+        text: "Doplň: „There ___ two books on the table.“",
+        options: ["are", "is", "be", "am"],
+        correctIndex: 0
+      },
+      {
+        text: "Doplň: „My sister ___ got a new phone.“",
+        options: ["has", "have", "is", "are"],
+        correctIndex: 0
+      },
+      {
+        text: "Vyber větu se správným slovosledem.",
+        options: [
+          "We often eat pizza.",
+          "Often we pizza eat.",
+          "We eat often pizza.",
+          "Eat we often pizza."
+        ],
+        correctIndex: 0
+      },
+      {
+        text: "Doplň přítomný průběhový čas: „Tom ___ TV now.“",
+        options: ["is watching", "watches", "watch", "watching"],
+        correctIndex: 0
+      },
+      {
+        text: "Doplň správný začátek otázky: „___ you like English?“",
+        options: ["Do", "Are", "Did", "Have"],
+        correctIndex: 0
+      },
+      {
+        text: "Doplň správnou předložku: „The lesson starts ___ eight o'clock.“",
+        options: ["at", "in", "on", "by"],
+        correctIndex: 0
+      },
+      {
+        text: "Vyber správný tvar 2. stupně: „This book is ___ than that book.“",
+        options: ["better", "gooder", "more good", "the best"],
+        correctIndex: 0
+      }
     ]
   }
 };
+
 
 // ---------- STAV ----------
 let currentSubject = null;
@@ -1467,6 +1548,7 @@ function prepareQuestions(allQuestions) {
 </script>
 </body>
 </html>
+
 
 
 
