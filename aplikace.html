@@ -1342,9 +1342,6 @@ function startQuiz() {
   const preparedQuestions = prepareQuestions(allQuestions);
 
 
-
- 
-
     if (mode === "test") {
         currentQuestions = preparedQuestions.slice(0, Math.min(TEST_QUESTION_COUNT, preparedQuestions.length));
         timeLeft = TEST_TIME_LIMIT;
@@ -1557,6 +1554,7 @@ function prepareQuestions(allQuestions) {
 </script>
 </body>
 </html>
+
 
 
 
