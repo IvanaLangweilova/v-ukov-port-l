@@ -1136,7 +1136,23 @@ document.querySelectorAll(".subject-card[data-subject='matematika']").forEach(ca
         showScreen("quiz");
     });
 });
+// ANGLIČTINA
+document.querySelectorAll(".subject-card[data-subject='anglictina']").forEach(card => {
+    card.addEventListener("click", () => {
+        currentSubject = "anglictina";
+        quizTitle.textContent = "Anglický jazyk – procvičování";
 
+        currentGrade = "7. ročník";
+        gradeSelect.value = "7. ročník";
+
+        topicSelect.innerHTML = `
+            <option value="slovnik">Slovní zásoba</option>
+            <option value="gramatika">Základy gramatiky</option>
+        `;
+
+        showScreen("quiz");
+    });
+});
 // ČESKÝ JAZYK
 document.querySelectorAll(".subject-card[data-subject='cestina']").forEach(card => {
     card.addEventListener("click", () => {
@@ -1409,6 +1425,7 @@ function prepareQuestions(allQuestions) {
 </script>
 </body>
 </html>
+
 
 
 
