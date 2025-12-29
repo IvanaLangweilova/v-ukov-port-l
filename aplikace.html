@@ -1028,7 +1028,7 @@ const QUESTIONS_CJ = {
 
 
 
-    // ---------- OTÁZKY – ANGLIČTINA, 7. ROČNÍK ----------
+   // --------- OTÁZKY – ANGLIČTINA, 7. ROČNÍK ---------
 const QUESTIONS_AJ = {
   "7. ročník": {
     slovnik: [
@@ -1046,6 +1046,11 @@ const QUESTIONS_AJ = {
         text: "Jak se anglicky řekne „dědeček“?",
         options: ["grandfather", "mother", "cousin", "sister"],
         correctIndex: 0
+      },
+      {
+        text: "Jak se anglicky řekne „škola“?",
+        options: ["school", "hospital", "shop", "park"],
+        correctIndex: 1
       },
       {
         text: "Které z těchto slov znamená „mrkev“?",
@@ -1076,11 +1081,6 @@ const QUESTIONS_AJ = {
         text: "Jak se anglicky řekne „nemocnice“?",
         options: ["hospital", "school", "cinema", "post office"],
         correctIndex: 0
-      },
-      {
-        text: "Které z těchto slov je přídavné jméno?",
-        options: ["big", "table", "school", "brother"],
-        correctIndex: 0
       }
     ],
 
@@ -1098,16 +1098,6 @@ const QUESTIONS_AJ = {
       {
         text: "Doplň minulý čas slovesa „to be“: „They ___ at home yesterday.“",
         options: ["were", "was", "are", "be"],
-        correctIndex: 0
-      },
-      {
-        text: "Doplň: „There ___ two books on the table.“",
-        options: ["are", "is", "be", "am"],
-        correctIndex: 0
-      },
-      {
-        text: "Doplň: „My sister ___ got a new phone.“",
-        options: ["has", "have", "is", "are"],
         correctIndex: 0
       },
       {
@@ -1139,10 +1129,22 @@ const QUESTIONS_AJ = {
         text: "Vyber správný tvar 2. stupně: „This book is ___ than that book.“",
         options: ["better", "gooder", "more good", "the best"],
         correctIndex: 0
+      },
+      {
+        text: "Doplň tvar slovesa „have got“: „My sister ___ got a new phone.“",
+        options: ["has", "have", "is", "are"],
+        correctIndex: 0
+      },
+      {
+        text: "Doplň tvar slovesa „can“: „He ___ swim very well.“",
+        options: ["can", "cans", "is can", "can to"],
+        correctIndex: 0
       }
     ]
   }
 };
+// ---------- STAV ----------
+
 
 
 // ---------- STAV ----------
@@ -1552,6 +1554,7 @@ function prepareQuestions(allQuestions) {
 </script>
 </body>
 </html>
+
 
 
 
