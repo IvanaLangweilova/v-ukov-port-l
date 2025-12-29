@@ -1324,12 +1324,23 @@ startBtn.addEventListener("click", () => {
 function startQuiz() {
     resetState();
 
-    const allQuestions =
-    currentSubject === "cestina"
-        ? QUESTIONS_CJ[currentGrade][currentTopic]
-    : currentSubject === "anglictina"
-        ? QUESTIONS_AJ[currentGrade][currentTopic]
-   : QUESTIONS[currentGrade][currentTopic];
+     let allQuestions;
+
+  if (currentSubject === "cestina") {
+    allQuestions = QUESTIONS_CJ[currentGrade]?.[currentTopic];
+  } else if (currentSubject === "anglictina") {
+    allQuestions = QUESTIONS_AJ[currentGrade]?.[currentTopic];
+  } else {
+    allQuestions = QUESTIONS[currentGrade]?.[currentTopic];
+  }
+
+  if (!Array.isArray(allQuestions) || allQuestions.length === 0) {
+    alert("Pro zvolený ročník a téma zatím nejsou připravené otázky.");
+    return;
+  }
+
+  const preparedQuestions = prepareQuestions(allQuestions);
+
 
 
     const preparedQuestions = prepareQuestions(allQuestions);
@@ -1546,6 +1557,7 @@ function prepareQuestions(allQuestions) {
 </script>
 </body>
 </html>
+
 
 
 
