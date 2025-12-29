@@ -1246,9 +1246,12 @@ function startQuiz() {
     resetState();
 
     const allQuestions =
-        currentSubject === "cestina"
-            ? QUESTIONS_CJ[currentGrade][currentTopic]
-            : QUESTIONS[currentGrade][currentTopic];
+    currentSubject === "cestina"
+        ? QUESTIONS_CJ[currentGrade][currentTopic]
+    : currentSubject === "anglictina"
+        ? QUESTIONS_AJ[currentGrade][currentTopic]
+   : QUESTIONS[currentGrade][currentTopic];
+
 
     const preparedQuestions = prepareQuestions(allQuestions);
 
@@ -1464,6 +1467,7 @@ function prepareQuestions(allQuestions) {
 </script>
 </body>
 </html>
+
 
 
 
